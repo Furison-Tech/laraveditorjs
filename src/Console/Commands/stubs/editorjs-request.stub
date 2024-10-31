@@ -1,0 +1,48 @@
+<?php
+
+namespace {{ namespace }};
+
+use FurisonTech\LaraveditorJS\EditorJSFormRequest;
+
+class {{ class }} extends EditorJSFormRequest
+{
+    public function __construct()
+    {
+        parent::__construct([
+            // Add your EditorJSRequestFieldRuleBuilder instances here
+        ]);
+    }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Additional validation rules. For example, if you have a fields outside the article, like a meta description.
+     * These rules will be appended to the generated article rules.
+     *
+     * @return array
+     */
+    protected function additionalRules(): array
+    {
+        return [
+            // Add your additional rules here, if any.
+        ];
+    }
+
+    /**
+     * Custom error messages for the additional validation rules, if any.
+     *
+     * @return array
+     */
+    protected function additionalRulesErrorMessages(): array
+    {
+        return [
+            // Add custom error messages for your additional rules here, if any.
+        ];
+    }
+}

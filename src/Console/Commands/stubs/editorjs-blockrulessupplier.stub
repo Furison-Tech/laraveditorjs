@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
+
+class {{ class }} extends BlockRulesSupplier
+{
+
+    public function __construct(int|null $maxBlocks)
+    {
+        parent::__construct($maxBlocks);
+    }
+
+    public function getRules(): array
+    {
+        return [
+           // Add your laravel validation rules here for this block
+        ];
+    }
+
+    public function getRulesErrorMessages(): array
+    {
+        return [
+            // Add custom error messages for your block's rules here, if any.
+        ];
+    }
+}
