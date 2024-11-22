@@ -11,7 +11,7 @@ class HeaderBlockRulesSupplierTest extends TestCase
     {
         $supplier = new HeaderBlockRulesSupplier(255, 2,6,1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('text', $rules);

@@ -6,24 +6,24 @@ class AudioPlayerBlockRulesSupplier extends BlockRulesSupplier
 {
     private string|null $urlStart;
 
-    public function __construct(string|null $urlStart, int|null $maxBlocks)
+    public function __construct(string|null $urlStart)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("audioPlayer");
         $this->urlStart = $urlStart;
     }
 
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         $startsWith = $this->urlStart ? '|starts_with:' . $this->urlStart : '';
         return [
-            'src' => 'required|url'.$startsWith,
+            'src' => 'required|url' . $startsWith,
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [];
     }

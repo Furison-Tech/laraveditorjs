@@ -10,7 +10,7 @@ class TableBlockRulesSupplierTest extends TestCase
     public function testGetRulesReturnsExpectedArray(): void
     {
         $supplier = new TableBlockRulesSupplier(10, 5, 255, 1);
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('withHeadings', $rules);
         $this->assertArrayHasKey('content', $rules);

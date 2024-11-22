@@ -14,9 +14,9 @@ abstract class EditorJSFormRequest extends FormRequest
 
     /**
      * EditorJSFormRequest constructor.
-     * @param array<EditorJSRequestFieldRuleBuilder> $editorJSFieldRuleBuilders
+     * @param array<String, EditorJSRequestFieldRuleBuilder> $editorJSFieldRuleBuilders
      */
-    public function __construct(...$editorJSFieldRuleBuilders)
+    public function __construct(array $editorJSFieldRuleBuilders)
     {
         parent::__construct();
         $this->editorJSFieldRuleBuilders = $editorJSFieldRuleBuilders;
@@ -31,8 +31,8 @@ abstract class EditorJSFormRequest extends FormRequest
         $rules = [];
 
         // Build rules for each Editor.js field
-        foreach ($this->editorJSFieldRuleBuilders as $builder) {
-            $rules = array_merge($rules, $builder->buildRules($this));
+        foreach ($this->editorJSFieldRuleBuilders as $field => $builder) {
+            $rules = array_merge($rules, $builder->buildRules($field, $this->input($field)));
         }
 
         // Merge with additional rules
@@ -43,15 +43,18 @@ abstract class EditorJSFormRequest extends FormRequest
      * Additional validation rules.
      * @return array
      */
-    abstract protected function additionalRules(): array;
+    protected function additionalRules(): array
+    {
+        return [];
+    }
 
     final public function messages(): array
     {
         $messages = [];
 
         // Build custom error messages for each Editor.js field
-        foreach ($this->editorJSFieldRuleBuilders as $builder) {
-            $messages = array_merge($messages, $builder->buildMessages($this));
+        foreach ($this->editorJSFieldRuleBuilders as $field => $builder) {
+            $messages = array_merge($messages, $builder->buildMessages($field, $this->input($field)));
         }
 
         // Merge with additional rules
@@ -62,7 +65,10 @@ abstract class EditorJSFormRequest extends FormRequest
      * Additional validation rules error messages.
      * @return array
      */
-    abstract protected function additionalMessages(): array;
+    protected function additionalMessages(): array
+    {
+        return [];
+    }
 
     final protected function passedValidation(): void
     {

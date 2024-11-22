@@ -10,9 +10,9 @@ class ImageBlockRulesSupplier extends BlockRulesSupplier
     private int $maxCaptionLength;
     private string|null $urlRegex;
 
-    public function __construct(int $maxCaptionLength, string|null $urlRegex, int|null $maxBlocks)
+    public function __construct(int $maxCaptionLength, string|null $urlRegex)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("image");
         $this->maxCaptionLength = $maxCaptionLength;
         $this->urlRegex = $urlRegex;
     }
@@ -20,7 +20,7 @@ class ImageBlockRulesSupplier extends BlockRulesSupplier
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         $fileUrlRules = ['required', 'url'];
         if ($this->urlRegex) {
@@ -37,7 +37,7 @@ class ImageBlockRulesSupplier extends BlockRulesSupplier
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             'caption' => 'captions of images in this article may not exceed ' . $this->maxCaptionLength. ' characters.',

@@ -23,7 +23,7 @@ class BlockRulesSupplierTest extends TestCase
     {
         $supplier = new DummyBlockRulesSupplier(1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertEmpty($rules);
@@ -33,7 +33,7 @@ class BlockRulesSupplierTest extends TestCase
     {
         $supplier = new DummyBlockRulesSupplier(1);
 
-        $messages = $supplier->getRulesErrorMessages();
+        $messages = $supplier->errorMessages();
 
         $this->assertIsArray($messages);
         $this->assertEmpty($messages);

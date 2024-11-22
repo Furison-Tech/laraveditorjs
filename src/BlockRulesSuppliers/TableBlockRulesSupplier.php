@@ -8,9 +8,9 @@ class TableBlockRulesSupplier extends BlockRulesSupplier
     private int $maxColumns;
     private int $maxTextLength;
 
-    public function __construct(int $maxRows, int $maxColumns, int $maxTextLength, int|null $maxBlocks)
+    public function __construct(int $maxRows, int $maxColumns, int $maxTextLength)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("table");
         $this->maxRows = $maxRows;
         $this->maxColumns = $maxColumns;
         $this->maxTextLength = $maxTextLength;
@@ -19,7 +19,7 @@ class TableBlockRulesSupplier extends BlockRulesSupplier
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         return [
             'withHeadings' => 'required|boolean',
@@ -29,7 +29,7 @@ class TableBlockRulesSupplier extends BlockRulesSupplier
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             'content' => 'tables in this article may not exceed ' . $this->maxRows . ' rows.',

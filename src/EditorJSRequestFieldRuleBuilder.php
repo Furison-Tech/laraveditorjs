@@ -4,16 +4,13 @@ namespace FurisonTech\LaraveditorJS;
 
 
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\NestedBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\Exceptions\InvalidHtmlException;
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditorJSRequestFieldRuleBuilder
 {
-    /**
-     * @var string
-     */
-    private string $fieldName;
 
     /**
      * @var array
@@ -24,27 +21,25 @@ class EditorJSRequestFieldRuleBuilder
     /**
      * EditorJSRequestFieldRuleBuilder constructor.
      *
-     * @param string $fieldName
-     * @param array $blockRuleSuppliers Array of block types to [BlockRulesProviderInterface, max count]
+     * @param array ...$blockRuleSuppliers Array of block types to [BlockRulesProviderInterface, max count]
      */
-    public function __construct(string $fieldName, array $blockRuleSuppliers)
+    public function __construct(BlockRulesSupplier ...$BlockRulesSuppliers)
     {
-        $this->fieldName = $fieldName;
-        $this->blockRuleSuppliers = $blockRuleSuppliers;
+        foreach ($BlockRulesSuppliers as $blockRuleSupplier) {
+            $this->blockRuleSuppliers[$blockRuleSupplier->getBlockType()] = $blockRuleSupplier;
+        }
     }
 
     /**
      * Build validation rules for the Editor.js field.
      *
-     * @param FormRequest $request
      * @return array
      */
-    public function buildRules(FormRequest $request): array
+    public function buildRules($field, $data): array
     {
         $rules = [];
 
-        $field = $this->fieldName;
-        $blocks = $request->input("$field.blocks", []);
+        $blocks = $data['blocks'] ?? [];
 
         // Initial validation rules
         $rules["$field"] = ['required', 'array'];
@@ -75,14 +70,18 @@ class EditorJSRequestFieldRuleBuilder
                     $this->failByTooManyOccurrences($blockType, $supplier->getMaxBlocks());
             }
 
+            if ($supplier instanceof NestedBlockRulesSupplier) {
+                $supplier->setNestedData($block['data'] ?? []);
+            }
+
             //Get block specific rules
-            $dataRules = $supplier->getRules();
+            $dataRules = $supplier->rules();
 
             foreach ($dataRules as $key => $rule) {
                 $absoluteKey = "$field.blocks.$index.data.$key";
 
                 if ($supplier instanceof ContentFormatConvertable &&
-                    in_array($absoluteKey, $supplier->htmlableBlockDataFields())) {
+                    in_array($key, $supplier->htmlableBlockDataFields())) {
 
                     $rule = is_array($rule) ? $rule : explode('|', $rule);
                     $rule[] = $this->allowedHtmlRules[$absoluteKey] =
@@ -100,15 +99,13 @@ class EditorJSRequestFieldRuleBuilder
     /**
      * Build validation rules for the Editor.js field.
      *
-     * @param FormRequest $request
      * @return array
      */
-    public function buildMessages(FormRequest $request): array
+    public function buildMessages($field, $data): array
     {
         $rulesMessages = [];
-        $field = $this->fieldName;
 
-        foreach ($request->input("$field.blocks", []) as $index => $block) {
+        foreach ($data['blocks'] ?? [] as $index => $block) {
             $blockType = $block['type'] ?? null;
 
             if (!$blockType || !isset($this->blockRuleSuppliers[$blockType])) {
@@ -118,7 +115,7 @@ class EditorJSRequestFieldRuleBuilder
             /** @var BlockRulesSupplier $supplier */
             $supplier = $this->blockRuleSuppliers[$blockType];
 
-            $dataRulesMessages = $supplier->getRulesErrorMessages();
+            $dataRulesMessages = $supplier->errorMessages();
 
             foreach ($dataRulesMessages as $key => $message) {
                 $rulesMessages["$field.blocks.$index.data.$key"] = $message;

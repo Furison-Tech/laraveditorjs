@@ -8,9 +8,9 @@ class EmbedBlockRulesSupplier extends BlockRulesSupplier
     private int $maxCaptionLength;
     private array $allowedServices;
 
-    public function __construct(array $allowedServices, int $maxCaptionLength, int|null $maxBlocks)
+    public function __construct(array $allowedServices, int $maxCaptionLength)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("embed");
         $this->maxCaptionLength = $maxCaptionLength;
         $this->allowedServices = $allowedServices;
     }
@@ -18,7 +18,7 @@ class EmbedBlockRulesSupplier extends BlockRulesSupplier
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         return [
             'caption' => 'nullable|string|max:' . $this->maxCaptionLength,
@@ -30,7 +30,7 @@ class EmbedBlockRulesSupplier extends BlockRulesSupplier
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             'caption' => 'captions of embedded content in this article may not exceed ' . $this->maxCaptionLength. ' characters.',

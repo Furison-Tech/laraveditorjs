@@ -11,23 +11,23 @@ class ParagraphBlockRulesSupplier extends BlockRulesSupplier implements ContentF
 
     private int $maxLength;
 
-    public function __construct(int $maxLength, int|null $maxBlocks)
+    public function __construct(int $maxLength)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("paragraph");
         $this->maxLength = $maxLength;
     }
 
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         return [
             'text' => 'required|string|max:' . $this->maxLength
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             "text.max" => "Paragraphs for this article may not exceed {$this->maxLength} characters."

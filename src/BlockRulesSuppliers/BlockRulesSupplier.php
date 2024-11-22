@@ -4,33 +4,20 @@ namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
 
 abstract class BlockRulesSupplier
 {
+    private string $blockType;
 
-    private int|null $maxBlocks;
-
-    public function __construct($maxBlocks)
+    public function __construct(string $blockType)
     {
-        $this->maxBlocks = $maxBlocks;
+        $this->blockType = $blockType;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getMaxBlocks(): ?int
+    public function getBlockType(): string
     {
-        return $this->maxBlocks;
+        return $this->blockType;
     }
 
-    /**
-     * Get validation rules for the block.
-     *
-     * @return array
-     */
-    abstract public function getRules(): array;
+    abstract public function rules(): array;
 
-    /**
-     * Get validation rules error messages for the block.
-     *
-     * @return array
-     */
-    abstract public function getRulesErrorMessages(): array;
+    abstract public function errorMessages(): array;
+
 }

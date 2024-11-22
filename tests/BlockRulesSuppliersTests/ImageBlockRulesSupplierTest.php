@@ -11,7 +11,7 @@ class ImageBlockRulesSupplierTest extends TestCase
     {
         $supplier = new ImageBlockRulesSupplier(255, null,1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('withBorder', $rules);
@@ -32,7 +32,7 @@ class ImageBlockRulesSupplierTest extends TestCase
     {
         $supplier = new ImageBlockRulesSupplier(255, "https://example.com",1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('withBorder', $rules);

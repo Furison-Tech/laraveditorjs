@@ -14,7 +14,7 @@ final class EmbedBlockRulesSupplierTest extends TestCase
         $embedRegexRules = $embedServicesRegex->getRegexRulesForServices(['vimeo', 'youtube']);
         $supplier = new EmbedBlockRulesSupplier($embedRegexRules, 255, 10);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('caption', $rules);

@@ -11,7 +11,7 @@ class ListBlockRulesSupplierTest extends TestCase
     {
         $supplier = new ListBlockRulesSupplier(10, 255, 1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('style', $rules);

@@ -11,7 +11,7 @@ final class AudioPlayerBlockRulesSupplierTest extends TestCase
     {
         $supplier = new AudioPlayerBlockRulesSupplier(null,1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('src', $rules);
@@ -22,7 +22,7 @@ final class AudioPlayerBlockRulesSupplierTest extends TestCase
     {
         $supplier = new AudioPlayerBlockRulesSupplier("https://example.com",1);
 
-        $rules = $supplier->getRules();
+        $rules = $supplier->rules();
 
         $this->assertIsArray($rules);
         $this->assertArrayHasKey('src', $rules);

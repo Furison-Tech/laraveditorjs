@@ -23,7 +23,7 @@ class EditorJSFormRequestTest extends TestCase
 
         $formRequest = new DummyEditorJSFormRequest();
         $formRequest->setMethod('POST');
-        $formRequest->request->add($requestData);
+        $formRequest->replace($requestData);
 
         $rules = $formRequest->rules();
 

@@ -8,16 +8,16 @@ class DummyBlockRulesSupplier extends BlockRulesSupplier
 {
     public function __construct(int|null $maxBlocks)
     {
-        parent::__construct($maxBlocks);
+        
     }
 
 
-    public function getRules(): array
+    public function rules(): array
     {
         return [];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [];
     }

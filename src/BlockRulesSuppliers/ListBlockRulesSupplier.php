@@ -8,9 +8,9 @@ class ListBlockRulesSupplier extends BlockRulesSupplier
     private int $maxItemLength;
     private int $maxItems;
 
-    public function __construct(int $maxItems, int $maxItemLength, int|null $maxBlocks)
+    public function __construct(int $maxItems, int $maxItemLength)
     {
-        parent::__construct($maxBlocks);
+        parent::__construct("list");
         $this->maxItems = $maxItems;
         $this->maxItemLength = $maxItemLength;
     }
@@ -18,7 +18,7 @@ class ListBlockRulesSupplier extends BlockRulesSupplier
     /**
      * @inheritDoc
      */
-    public function getRules(): array
+    public function rules(): array
     {
         return [
             'style' => 'required|in:ordered,unordered',
@@ -27,7 +27,7 @@ class ListBlockRulesSupplier extends BlockRulesSupplier
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             'items' => 'lists in this article may not exceed ' . $this->maxItems . ' items.',

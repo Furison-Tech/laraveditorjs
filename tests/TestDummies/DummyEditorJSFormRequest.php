@@ -23,16 +23,17 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
         $embedServicesRegex = new EmbedServicesRegex();
         $embedRegexRules = $embedServicesRegex->getRegexRulesForServices(['coub']);
 
-        parent::__construct(
-            new EditorJSRequestFieldRuleBuilder('article', [
-                'table' => new TableBlockRulesSupplier(200, 20, 255, 3),
-                'header' => new HeaderBlockRulesSupplier(255, 2, 6,null),
-                'paragraph' => new ParagraphBlockRulesSupplier(2500, null),
-                'image' => new ImageBlockRulesSupplier(255, null,10),
-                'audioPlayer' => new AudioPlayerBlockRulesSupplier(null, 12),
-                'embed' => new EmbedBlockRulesSupplier($embedRegexRules, 255, 5),
-                'list' => new ListBlockRulesSupplier(100, 500, null),
-            ])
+        parent::__construct([
+                "article" => new EditorJSRequestFieldRuleBuilder(
+                    new TableBlockRulesSupplier(200, 20, 255),
+                    new HeaderBlockRulesSupplier(255, 2, 6),
+                    new ParagraphBlockRulesSupplier(2500),
+                    new ImageBlockRulesSupplier(255, null),
+                    new AudioPlayerBlockRulesSupplier(null),
+                    new EmbedBlockRulesSupplier($embedRegexRules, 255),
+                    new ListBlockRulesSupplier(100, 500),
+                )
+            ]
         );
     }
 
