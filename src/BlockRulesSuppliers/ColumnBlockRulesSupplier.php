@@ -2,29 +2,11 @@
 
 namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
 
-use FurisonTech\LaraveditorJS\EditorJSRequestFieldRuleBuilder;
-
-class ColumnBlockRulesSupplier extends BlockRulesSupplier
+class ColumnBlockRulesSupplier extends NestedBlockRulesSupplier
 {
 
-    private EditorJSRequestFieldRuleBuilder $ruleBuilder;
-
-    public function __construct(EditorJSRequestFieldRuleBuilder $ruleBuilder)
+    public function __construct(BlockRulesSupplier ...$BlockRulesSuppliers)
     {
-        $this->ruleBuilder = $ruleBuilder;
-    }
-
-
-    public function rules(): array
-    {
-        $rules = [
-            'cols' => 'required|array|between:1,6',
-        ];
-        return array_merge($rules, $this->ruleBuilder->buildRules());
-    }
-
-    public function errorMessages(): array
-    {
-        return [];
+        parent::__construct($BlockRulesSuppliers ,'column', 'cols');
     }
 }

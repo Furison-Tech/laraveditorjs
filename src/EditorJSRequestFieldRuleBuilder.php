@@ -17,22 +17,28 @@ class EditorJSRequestFieldRuleBuilder
      */
     private array $blockRuleSuppliers;
     private array $allowedHtmlRules = [];
+    private array $blockTypeMaxes;
 
     /**
      * EditorJSRequestFieldRuleBuilder constructor.
      *
-     * @param array ...$blockRuleSuppliers Array of block types to [BlockRulesProviderInterface, max count]
+     * @param array $blockTypeMaxes
+     * @param BlockRulesSupplier ...$BlockRulesSuppliers
      */
-    public function __construct(BlockRulesSupplier ...$BlockRulesSuppliers)
+    public function __construct(array $blockTypeMaxes, BlockRulesSupplier ...$BlockRulesSuppliers)
     {
         foreach ($BlockRulesSuppliers as $blockRuleSupplier) {
             $this->blockRuleSuppliers[$blockRuleSupplier->getBlockType()] = $blockRuleSupplier;
         }
+
+        $this->blockTypeMaxes = $blockTypeMaxes;
     }
 
     /**
      * Build validation rules for the Editor.js field.
      *
+     * @param $field
+     * @param $data
      * @return array
      */
     public function buildRules($field, $data): array
@@ -65,13 +71,15 @@ class EditorJSRequestFieldRuleBuilder
             $blockTypeOccurrences[$blockType] = ($blockTypeOccurrences[$blockType] ?? 0) + 1;
 
             // Check max count if specified
-            if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $supplier->getMaxBlocks())) {
+            if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $this->blockTypeMaxes[$blockType]))
+            {
                 $rules["$field.blocks.$index"][] =
-                    $this->failByTooManyOccurrences($blockType, $supplier->getMaxBlocks());
+                    $this->failByTooManyOccurrences($blockType, $this->blockTypeMaxes[$blockType]);
             }
 
             if ($supplier instanceof NestedBlockRulesSupplier) {
                 $supplier->setNestedData($block['data'] ?? []);
+                $supplier->setCurrentBaseFieldKey("$field.blocks.$index.data");
             }
 
             //Get block specific rules
@@ -99,6 +107,8 @@ class EditorJSRequestFieldRuleBuilder
     /**
      * Build validation rules for the Editor.js field.
      *
+     * @param $field
+     * @param $data
      * @return array
      */
     public function buildMessages($field, $data): array
@@ -116,6 +126,11 @@ class EditorJSRequestFieldRuleBuilder
             $supplier = $this->blockRuleSuppliers[$blockType];
 
             $dataRulesMessages = $supplier->errorMessages();
+
+            if ($supplier instanceof NestedBlockRulesSupplier) {
+                $supplier->setNestedData($block['data'] ?? []);
+                $supplier->setCurrentBaseFieldKey("$field.blocks.$index.data");
+            }
 
             foreach ($dataRulesMessages as $key => $message) {
                 $rulesMessages["$field.blocks.$index.data.$key"] = $message;

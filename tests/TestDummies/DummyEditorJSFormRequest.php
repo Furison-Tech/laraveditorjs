@@ -3,6 +3,7 @@
 namespace TestDummies;
 
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioPlayerBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ColumnBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\EmbedBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\HeaderBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ImageBlockRulesSupplier;
@@ -15,26 +16,43 @@ use FurisonTech\LaraveditorJS\Utils\EmbedServicesRegex;
 
 class DummyEditorJSFormRequest extends EditorJSFormRequest
 {
-    //todo add code block, audio upload, and columns.
-
 
     public function __construct()
     {
         $embedServicesRegex = new EmbedServicesRegex();
         $embedRegexRules = $embedServicesRegex->getRegexRulesForServices(['coub']);
 
-        parent::__construct([
-                "article" => new EditorJSRequestFieldRuleBuilder(
-                    new TableBlockRulesSupplier(200, 20, 255),
-                    new HeaderBlockRulesSupplier(255, 2, 6),
+        $blockTypeMaxOccurences = [
+            "header" => 10,
+            "paragraph" => null,
+            "image" => 6,
+            "audio" => 6,
+            "embed" => 3,
+            "table" => 3,
+            "list" => 10,
+            "column" => 1
+        ];
+
+        $fieldRulesSuppliersMap = [
+            "article" => new EditorJSRequestFieldRuleBuilder(
+                $blockTypeMaxOccurences,
+                new TableBlockRulesSupplier(200, 20, 255),
+                new HeaderBlockRulesSupplier(255, 2, 6),
+                new ParagraphBlockRulesSupplier(2500),
+                new ImageBlockRulesSupplier(255, null),
+                new AudioPlayerBlockRulesSupplier(null),
+                new EmbedBlockRulesSupplier($embedRegexRules, 255),
+                new ListBlockRulesSupplier(100, 500),
+                new ColumnBlockRulesSupplier(
                     new ParagraphBlockRulesSupplier(2500),
                     new ImageBlockRulesSupplier(255, null),
                     new AudioPlayerBlockRulesSupplier(null),
-                    new EmbedBlockRulesSupplier($embedRegexRules, 255),
-                    new ListBlockRulesSupplier(100, 500),
+                    new ListBlockRulesSupplier(100, 500)
                 )
-            ]
-        );
+            )
+        ];
+
+        parent::__construct($fieldRulesSuppliersMap);
     }
 
     /**
