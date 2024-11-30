@@ -13,6 +13,7 @@ class HeaderBlockRulesSupplier extends BlockRulesSupplier
 
     public function __construct(int $maxLength, int $minLevel, int $maxLevel)
     {
+        parent::__construct("header");
         $this->maxLength = $maxLength;
         $this->minLevel = $minLevel;
         $this->maxLevel = $maxLevel;

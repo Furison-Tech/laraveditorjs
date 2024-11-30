@@ -7,6 +7,6 @@ class ColumnBlockRulesSupplier extends NestedBlockRulesSupplier
 
     public function __construct(BlockRulesSupplier ...$BlockRulesSuppliers)
     {
-        parent::__construct($BlockRulesSuppliers ,'column', 'cols');
+        parent::__construct($BlockRulesSuppliers ,'columns', 'cols');
     }
 }

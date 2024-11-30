@@ -2,7 +2,7 @@
 
 namespace TestDummies;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioPlayerBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ColumnBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\EmbedBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\HeaderBlockRulesSupplier;
@@ -30,7 +30,7 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
             "embed" => 3,
             "table" => 3,
             "list" => 10,
-            "column" => 1
+            "columns" => 1
         ];
 
         $fieldRulesSuppliersMap = [
@@ -40,13 +40,13 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
                 new HeaderBlockRulesSupplier(255, 2, 6),
                 new ParagraphBlockRulesSupplier(2500),
                 new ImageBlockRulesSupplier(255, null),
-                new AudioPlayerBlockRulesSupplier(null),
+                new AudioBlockRulesSupplier(null),
                 new EmbedBlockRulesSupplier($embedRegexRules, 255),
                 new ListBlockRulesSupplier(100, 500),
                 new ColumnBlockRulesSupplier(
                     new ParagraphBlockRulesSupplier(2500),
                     new ImageBlockRulesSupplier(255, null),
-                    new AudioPlayerBlockRulesSupplier(null),
+                    new AudioBlockRulesSupplier(null),
                     new ListBlockRulesSupplier(100, 500)
                 )
             )

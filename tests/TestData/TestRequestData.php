@@ -69,9 +69,12 @@ class TestRequestData
                     ],
                     [
                         'id' => 'GHRiO1tLCE',
-                        'type' => 'audioPlayer',
+                        'type' => 'audio',
                         'data' => [
-                            'src' => 'https://file-examples.com/wp-content/storage/2017/11/file_example_MP3_700KB.mp3'
+                            'file' => [
+                                'url' => 'https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.mp3'
+                            ],
+                            'canDownload' => true
                         ]
                     ],
                     [
@@ -83,6 +86,61 @@ class TestRequestData
                             'width' => 580,
                             'height' => 320,
                             'caption' => 'My Life'
+                        ]
+                    ],
+                    [
+                        'id' => 'BVOoPd1qjD',
+                        'type' => 'columns',
+                        'data' => [
+                            'cols' => [
+                                [
+                                    'time' => 1730030546507,
+                                    'blocks' => [
+                                        [
+                                            'id' => 'p0Xe7vQePh',
+                                            'type' => 'paragraph',
+                                            'data' => [
+                                                'text' => 'test'
+                                            ]
+                                        ],
+                                        [
+                                            'id' => 'RGowT2udzC',
+                                            'type' => 'list',
+                                            'data' => [
+                                                'style' => 'ordered',
+                                                'items' => ['Pwoah', 'test']
+                                            ]
+                                        ],
+                                        [
+                                            'id' => '8jm3Aejg3o',
+                                            'type' => 'paragraph',
+                                            'data' => ['text' => 'asdad']
+                                        ]
+                                    ],
+                                    'version' => '2.29.1'
+                                ],
+                                [
+                                    'time' => 1730030546507,
+                                    'blocks' => [
+                                        [
+                                            'id' => 'eywNVBgCHa',
+                                            'type' => 'paragraph',
+                                            'data' => [
+                                                'text' => 'test2'
+                                            ]
+                                        ],
+                                        [
+                                            'id' => '1yPmWMR9Gw',
+                                            'type' => 'header',
+                                            'data' => [
+                                                'text' => 'bwoah',
+                                                'level' => 2
+                                            ]
+                                        ]
+                                    ],
+                                    'version' => '2.29.1'
+                                ]
+                            ]
                         ]
                     ]
                 ],

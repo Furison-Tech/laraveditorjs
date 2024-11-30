@@ -2,12 +2,9 @@
 
 namespace FurisonTech\LaraveditorJS;
 
-
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\NestedBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\Exceptions\InvalidHtmlException;
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
-use Illuminate\Foundation\Http\FormRequest;
 
 class EditorJSRequestFieldRuleBuilder
 {
