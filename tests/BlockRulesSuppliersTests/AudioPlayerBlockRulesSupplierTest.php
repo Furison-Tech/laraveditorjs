@@ -2,14 +2,15 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioPlayerBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioBlockRulesSupplier;
 use PHPUnit\Framework\TestCase;
 
 final class AudioPlayerBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new AudioPlayerBlockRulesSupplier(null,1);
+        $supplier = new AudioBlockRulesSupplier(null);
+        //todo : fix (was audioPlayer, not anymore)
 
         $rules = $supplier->rules();
 
@@ -20,7 +21,7 @@ final class AudioPlayerBlockRulesSupplierTest extends TestCase
 
     public function testGetRulesReturnsExpectedArrayWhenUrlStartNotNull(): void
     {
-        $supplier = new AudioPlayerBlockRulesSupplier("https://example.com",1);
+        $supplier = new AudioBlockRulesSupplier("https://example.com");
 
         $rules = $supplier->rules();
 

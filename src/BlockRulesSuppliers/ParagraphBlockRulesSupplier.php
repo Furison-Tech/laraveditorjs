@@ -17,9 +17,6 @@ class ParagraphBlockRulesSupplier extends BlockRulesSupplier implements ContentF
         $this->maxLength = $maxLength;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function rules(): array
     {
         return [

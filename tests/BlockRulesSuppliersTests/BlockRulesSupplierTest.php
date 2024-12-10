@@ -9,19 +9,18 @@ use TestDummies\DummyBlockRulesSupplier;
 
 class BlockRulesSupplierTest extends TestCase
 {
-    public function testGetMaxBlocks(): void
+    public function testGetBlockTypeReturnsBlock(): void
     {
-        $expectedMax = 42;
-        $supplier = new DummyBlockRulesSupplier($expectedMax);
+        $supplier = new DummyBlockRulesSupplier();
 
-        $actualMax = $supplier->getMaxBlocks();
+        $blockType = $supplier->getBlockType();
 
-        $this->assertEquals($expectedMax, $actualMax);
+        $this->assertEquals("block", $blockType);
     }
 
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new DummyBlockRulesSupplier(1);
+        $supplier = new DummyBlockRulesSupplier();
 
         $rules = $supplier->rules();
 
@@ -31,7 +30,7 @@ class BlockRulesSupplierTest extends TestCase
 
     public function testGetRulesErrorMessagesReturnsExpectedArray(): void
     {
-        $supplier = new DummyBlockRulesSupplier(1);
+        $supplier = new DummyBlockRulesSupplier();
 
         $messages = $supplier->errorMessages();
 

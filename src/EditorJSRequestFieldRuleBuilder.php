@@ -68,7 +68,7 @@ class EditorJSRequestFieldRuleBuilder
             $blockTypeOccurrences[$blockType] = ($blockTypeOccurrences[$blockType] ?? 0) + 1;
 
             // Check max count if specified
-            if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $this->blockTypeMaxes[$blockType]))
+            if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $blockType))
             {
                 $rules["$field.blocks.$index"][] =
                     $this->failByTooManyOccurrences($blockType, $this->blockTypeMaxes[$blockType]);
@@ -76,7 +76,6 @@ class EditorJSRequestFieldRuleBuilder
 
             if ($supplier instanceof NestedBlockRulesSupplier) {
                 $supplier->setNestedData($block['data'] ?? []);
-                $supplier->setCurrentBaseFieldKey("$field.blocks.$index.data");
             }
 
             //Get block specific rules
@@ -126,7 +125,6 @@ class EditorJSRequestFieldRuleBuilder
 
             if ($supplier instanceof NestedBlockRulesSupplier) {
                 $supplier->setNestedData($block['data'] ?? []);
-                $supplier->setCurrentBaseFieldKey("$field.blocks.$index.data");
             }
 
             foreach ($dataRulesMessages as $key => $message) {
@@ -137,8 +135,9 @@ class EditorJSRequestFieldRuleBuilder
         return $rulesMessages;
     }
 
-    private function occurrencesSurpassesThreshold($occurrences, $max): bool
+    private function occurrencesSurpassesThreshold($occurrences, $blockType): bool
     {
+        $max = $this->blockTypeMaxes[$blockType] ?? null;
         if ($max === null) {
             return false;
         }

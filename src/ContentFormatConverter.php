@@ -118,7 +118,7 @@ class ContentFormatConverter {
 
         foreach ($styleRules as $rule) {
             $rule = trim($rule);
-            if (empty($rule) && str_contains($rule, ':')) {
+            if (empty($rule) || !str_contains($rule, ':')) {
                 continue;
             }
 

@@ -12,7 +12,7 @@ class HtmlToJsonConverterTest extends TestCase
 
         //todo: REMOVE ANY CONVERTABLE IMPLEMENTATION FROM BLOCKRULES.
         // A developer can easily extend the class and implement the interface.
-        //todo: IF not an instance of this, strip chars by default
+        //todo: IF not an instance of this, strip chars by default? or not because its a choice, maybe with variable/enum
 
         $htmlString = 'This is a <span style="color: #0F0"><a href="https://en.wikipedia.org/wiki/HTML">HTML</a> String</span>!';
         $allowList = [

@@ -7,9 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 abstract class EditorJSFormRequest extends FormRequest
 {
-
-    protected bool $convertInlineHtmlToJson = true;
-
     private array $editorJSFieldRuleBuilders = [];
 
     /**
@@ -70,12 +67,8 @@ abstract class EditorJSFormRequest extends FormRequest
         return [];
     }
 
-    final protected function passedValidation(): void
+    public function getJsonizedData($articleFieldsOnly = false): array
     {
-        if (!$this->convertInlineHtmlToJson){
-            return;
-        }
-
         $data = $this->validated();
 
         foreach ($this->editorJSFieldRuleBuilders as $builder) {
@@ -85,14 +78,14 @@ abstract class EditorJSFormRequest extends FormRequest
             }
         }
 
-        $this->replace($data);
+        if ($articleFieldsOnly) {
+            $data = array_intersect_key(
+                $data,
+                array_flip(array_keys($this->editorJSFieldRuleBuilders))
+            );
+        }
 
-        $this->additionalPassedValidation();
-    }
-
-    protected function additionalPassedValidation(): void
-    {
-
+        return $data;
     }
 
     public function getAllHtmlValidationErrors(): array

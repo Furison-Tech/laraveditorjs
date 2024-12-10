@@ -24,7 +24,6 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
 
         $blockTypeMaxOccurences = [
             "header" => 10,
-            "paragraph" => null,
             "image" => 6,
             "audio" => 6,
             "embed" => 3,
@@ -45,8 +44,7 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
                 new ListBlockRulesSupplier(100, 500),
                 new ColumnBlockRulesSupplier(
                     new ParagraphBlockRulesSupplier(2500),
-                    new ImageBlockRulesSupplier(255, null),
-                    new AudioBlockRulesSupplier(null),
+                    new HeaderBlockRulesSupplier(255, 3, 6),
                     new ListBlockRulesSupplier(100, 500)
                 )
             )
@@ -59,6 +57,11 @@ class DummyEditorJSFormRequest extends EditorJSFormRequest
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function passesAuthorization(): bool
     {
         return true;
     }
