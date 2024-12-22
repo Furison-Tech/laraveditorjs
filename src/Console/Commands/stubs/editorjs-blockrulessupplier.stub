@@ -7,9 +7,9 @@ use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
 class {{ class }} extends BlockRulesSupplier
 {
 
-    public function __construct(int|null $maxBlocks)
+    public function __construct()
     {
-
+        parent::__construct("INSERT_BLOCK_TYPE_HERE");
     }
 
     public function getRules(): array

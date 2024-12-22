@@ -26,7 +26,7 @@ class AllowedHtmlRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         try {
-            $this->convertedJson = ContentFormatConverter::htmlToJson($value, $this->allowList);
+            $this->convertedJson[$attribute] = ContentFormatConverter::htmlToJson($value, $this->allowList);
         } catch (InvalidHtmlException $e) {
             $this->error = $e;
             $fail($attribute . ' contains invalid HTML');

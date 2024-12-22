@@ -5,6 +5,7 @@ namespace FurisonTech\LaraveditorJS;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\NestedBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
+use Illuminate\Support\Number;
 
 class EditorJSRequestFieldRuleBuilder
 {
@@ -36,9 +37,10 @@ class EditorJSRequestFieldRuleBuilder
      *
      * @param $field
      * @param $data
+     * @param $allowedVersions
      * @return array
      */
-    public function buildRules($field, $data): array
+    public function buildRules($field, $data, $allowedVersions): array
     {
         $rules = [];
 
@@ -46,7 +48,7 @@ class EditorJSRequestFieldRuleBuilder
 
         // Initial validation rules
         $rules["$field"] = ['required', 'array'];
-        //todo: version
+        $rules["$field.version"] = ['required', "in:".implode(",", $allowedVersions)];
         $rules["$field.blocks"] = ['required', 'array'];
         $rules["$field.blocks.*"] = ['required', 'array'];
 
@@ -70,12 +72,12 @@ class EditorJSRequestFieldRuleBuilder
             // Check max count if specified
             if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $blockType))
             {
-                $rules["$field.blocks.$index"][] =
-                    $this->failByTooManyOccurrences($blockType, $this->blockTypeMaxes[$blockType]);
+                $rules["$field.blocks.$index"] = "missing";
             }
 
             if ($supplier instanceof NestedBlockRulesSupplier) {
                 $supplier->setNestedData($block['data'] ?? []);
+                $supplier->setAllowedVersions($allowedVersions);
             }
 
             //Get block specific rules
@@ -120,6 +122,14 @@ class EditorJSRequestFieldRuleBuilder
 
             /** @var BlockRulesSupplier $supplier */
             $supplier = $this->blockRuleSuppliers[$blockType];
+            $blockTypeOccurrences[$blockType] = ($blockTypeOccurrences[$blockType] ?? 0) + 1;
+
+            if ($this->occurrencesSurpassesThreshold($blockTypeOccurrences[$blockType], $blockType))
+            {
+                $rulesMessages["$field.blocks.$index.missing"] =
+                    $this->tooManyOccurrencesErrorString($blockType, $this->blockTypeMaxes[$blockType],
+                        $blockTypeOccurrences[$blockType]);
+            }
 
             $dataRulesMessages = $supplier->errorMessages();
 
@@ -144,11 +154,10 @@ class EditorJSRequestFieldRuleBuilder
         return $occurrences > $max;
     }
 
-    private function failByTooManyOccurrences($blockType, $maxBlocks): callable
+    private function tooManyOccurrencesErrorString($blockType, $maxBlocks, $occurrences): string
     {
-        return function ($attribute, $value, $fail) use ($blockType, $maxBlocks) {
-            $fail("The block of type '$blockType' may not appear more than $maxBlocks times.");
-        };
+        $occOrdinal = Number::ordinal($occurrences);
+        return "The block of type '$blockType' may not occur more than $maxBlocks times. This is the $occOrdinal occurrence.";
     }
 
     public function getAllowedHtmlRules(): array

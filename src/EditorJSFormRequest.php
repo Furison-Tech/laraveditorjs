@@ -8,14 +8,16 @@ use Illuminate\Foundation\Http\FormRequest;
 abstract class EditorJSFormRequest extends FormRequest
 {
     private array $editorJSFieldRuleBuilders = [];
+    private array $allowedVersions;
 
     /**
      * EditorJSFormRequest constructor.
      * @param array<String, EditorJSRequestFieldRuleBuilder> $editorJSFieldRuleBuilders
      */
-    public function __construct(array $editorJSFieldRuleBuilders)
+    public function __construct(string|array $allowedVersions, array $editorJSFieldRuleBuilders)
     {
         parent::__construct();
+        $this->allowedVersions = is_string($allowedVersions) ? [$allowedVersions] : $allowedVersions;
         $this->editorJSFieldRuleBuilders = $editorJSFieldRuleBuilders;
     }
 
@@ -29,7 +31,7 @@ abstract class EditorJSFormRequest extends FormRequest
 
         // Build rules for each Editor.js field
         foreach ($this->editorJSFieldRuleBuilders as $field => $builder) {
-            $rules = array_merge($rules, $builder->buildRules($field, $this->input($field)));
+            $rules = array_merge($rules, $builder->buildRules($field, $this->input($field), $this->allowedVersions));
         }
 
         // Merge with additional rules
@@ -74,7 +76,15 @@ abstract class EditorJSFormRequest extends FormRequest
         foreach ($this->editorJSFieldRuleBuilders as $builder) {
             foreach ($builder->getAllowedHtmlRules() as $ruleField => $allowedHtmlRule){
                 /* @var $allowedHtmlRule AllowedHtmlRule */
-                data_set($data, $ruleField, $allowedHtmlRule->getConvertedJson());
+
+                $convertedJson = $allowedHtmlRule->getConvertedJson();
+                if (count($convertedJson) > 1) {
+                    foreach ($convertedJson as $attribute => $jsonizedValue){
+                        data_set($data, $attribute, $jsonizedValue);
+                    }
+                } else if (count($convertedJson) == 1) {
+                    data_set($data, $ruleField, $allowedHtmlRule->getConvertedJson()[$ruleField]);
+                }
             }
         }
 

@@ -2,10 +2,10 @@
 
 namespace BlockRulesSuppliersTests;
 
-require_once __DIR__ . '/../TestDummies/DummyBlockRulesSupplier.php';
+require_once __DIR__ . '/../TestObjects/DummyBlockRulesSupplier.php';
 
 use PHPUnit\Framework\TestCase;
-use TestDummies\DummyBlockRulesSupplier;
+use TestObjects\DummyBlockRulesSupplier;
 
 class BlockRulesSupplierTest extends TestCase
 {

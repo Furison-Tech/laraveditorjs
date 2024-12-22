@@ -24,7 +24,7 @@ class ImageBlockRulesSupplierTest extends TestCase
         $this->assertEquals('sometimes|boolean', $rules['withBackground']);
         $this->assertEquals('sometimes|boolean', $rules['stretched']);
         $this->assertEquals('required|array', $rules['file']);
-        $this->assertEquals('required|url', $rules['file.url']);
+        $this->assertEquals(['required', 'url'], $rules['file.url']);
         $this->assertEquals('nullable|string|max:255', $rules['caption']);
     }
 
@@ -45,7 +45,7 @@ class ImageBlockRulesSupplierTest extends TestCase
         $this->assertEquals('sometimes|boolean', $rules['withBackground']);
         $this->assertEquals('sometimes|boolean', $rules['stretched']);
         $this->assertEquals('required|array', $rules['file']);
-        $this->assertEquals('required|url|starts_with:https://example.com', $rules['file.url']);
+        $this->assertEquals(['required','url','regex:https://example.com'], $rules['file.url']);
         $this->assertEquals('nullable|string|max:255', $rules['caption']);
     }
 }

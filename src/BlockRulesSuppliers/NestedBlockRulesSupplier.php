@@ -11,6 +11,8 @@ abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
     private array $nestedData = [];
     private string $nestedFieldKey;
 
+    private array $allowedVersions = [];
+
     public function __construct(array $blockRuleSuppliers, $blockType, $nestedFieldKey)
     {
         parent::__construct($blockType);
@@ -23,18 +25,25 @@ abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
         $this->nestedData = $nestedData;
     }
 
+    public function setAllowedVersions(array $allowedVersions): void
+    {
+        $this->allowedVersions = $allowedVersions;
+    }
+
     final public function rules(): array
     {
         $rules = $this->miscDataFieldsRules();
 
         if ( isset($this->nestedData[$this->nestedFieldKey]) && is_array($this->nestedData[$this->nestedFieldKey]) ){
             //todo: also add required|array rule here for nested field and merge with any additional rules for this key
-            //todo: if any for that key are received from $this->miscDataFieldsRules();
-            //todo: also do not forget to explode on | if value for key is a string.
+            // if any for that key are received from $this->miscDataFieldsRules();
+            // also do not forget to explode on | if value for key is a string.
 
             for($i = 0; $i < count($this->nestedData[$this->nestedFieldKey]); $i++){
                 $data = $this->nestedData[$this->nestedFieldKey][$i];
-                $rules = array_merge($rules, $this->ruleBuilder->buildRules("$this->nestedFieldKey.$i", $data));
+                $rules = array_merge($rules,
+                    $this->ruleBuilder->buildRules("$this->nestedFieldKey.$i", $data, $this->allowedVersions)
+                );
             }
         }
 
@@ -47,8 +56,8 @@ abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
 
         if ( isset($this->nestedData[$this->nestedFieldKey]) && is_array($this->nestedData[$this->nestedFieldKey]) ){
             //todo: also add required|array rule here for nested field and merge with any additional rules for this key
-            //todo: if any for that key are received from $this->miscDataFieldsRules();
-            //todo: also do not forget to explode on | if value for key is a string.
+            // if any for that key are received from $this->miscDataFieldsRules();
+            // also do not forget to explode on | if value for key is a string.
 
             for($i = 0; $i < count($this->nestedData[$this->nestedFieldKey]); $i++){
                 $data = $this->nestedData[$this->nestedFieldKey][$i];

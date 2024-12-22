@@ -7,12 +7,7 @@ class HtmlToJsonConverterTest extends TestCase
 {
     public function testHtmlToJson()
     {
-        //todo =>  expected vs actual op de juiste plaats check, en AAA
-        //todo =>  strip tags OF html_safe chars na html to json?
-
-        //todo: REMOVE ANY CONVERTABLE IMPLEMENTATION FROM BLOCKRULES.
-        // A developer can easily extend the class and implement the interface.
-        //todo: IF not an instance of this, strip chars by default? or not because its a choice, maybe with variable/enum
+        //todo: expected vs actual op de juiste plaats check, en AAA
 
         $htmlString = 'This is a <span style="color: #0F0"><a href="https://en.wikipedia.org/wiki/HTML">HTML</a> String</span>!';
         $allowList = [

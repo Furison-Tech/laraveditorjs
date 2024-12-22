@@ -1,11 +1,13 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace TestObjects;
 
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ParagraphBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\ContentFormatConvertable;
 
-class HtmlableParagraphBlock extends ParagraphBlockRulesSupplier implements ContentFormatConvertable
+class MockConvertableParagraphBlockRulesSupplier extends ParagraphBlockRulesSupplier implements ContentFormatConvertable
 {
+
     public function __construct(int $maxLength)
     {
         parent::__construct($maxLength);

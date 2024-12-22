@@ -1,17 +1,11 @@
 <?php
 
-namespace TestData;
+namespace TestScenarioData;
 
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
-use TestDummies\DummyEditorJSFormRequest;
-use FurisonTech\LaraveditorJS\EditorJSFormRequest;
 
-class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenarioDataHelper
+class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
 {
-    public function __construct()
-    {
-        parent::__construct(new DummyEditorJSFormRequest());
-    }
 
     public function getRequestData(): array
     {
@@ -23,7 +17,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                         'id' => '8dDU550iMy',
                         'type' => 'header',
                         'data' => [
-                            'text' => 'Dit is een <span style="color: #00FF00;">test</span> heading',
+                            'text' => 'Dit is een test heading',
                             'level' => 2
                         ]
                     ],
@@ -41,7 +35,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                             'style' => 'ordered',
                             'items' => [
                                 'Lijst item een',
-                                'Lijst <a href="https://youtube.com">item</a><b><i></i></b> twee',
+                                'Lijst item twee',
                                 'Lijst item drie'
                             ],
                         ]
@@ -58,7 +52,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                                 ],
                                 [
                                     'Kolomn 3',
-                                    '<b><i><font style="color: #00FFFF;">kolomn</font></i></b> 4'
+                                    '<b><i><span style="color: #00FFFF;">kolomn</span></i></b> 4'
                                 ]
                             ]
                         ]
@@ -126,7 +120,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                                             'data' => ['text' => 'asdad']
                                         ]
                                     ],
-                                    'version' => '2.29.1'
+                                    'version' => '2.22.2'
                                 ],
                                 [
                                     'time' => 1730030546507,
@@ -147,7 +141,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                                             ]
                                         ]
                                     ],
-                                    'version' => '2.29.1'
+                                    'version' => '2.22.2'
                                 ]
                             ]
                         ]
@@ -159,14 +153,9 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
         ];
     }
 
-    protected function getFormRequest(): EditorJSFormRequest
-    {
-        return new DummyEditorJSFormRequest();
-    }
-
     public function getExpectedRules(): array
     {
-        $allowedParagraphHtmlRule = new AllowedHtmlRule([
+        $allowedHtmlRule = new AllowedHtmlRule([
             'span' => [
                 'style' => [
                     'color' => '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
@@ -183,6 +172,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
 
         return [
             'article' => ['required', 'array'],
+            'article.version' => ['required', 'in:2.22.2'],
             'article.blocks' => ['required', 'array'],
             'article.blocks.*' => ['required', 'array'],
             'article.blocks.*.type' => [
@@ -197,7 +187,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                 'required',
                 'string',
                 'max:2500',
-                $allowedParagraphHtmlRule
+                $allowedHtmlRule
             ],
             'article.blocks.2.data.style' => 'required|in:ordered,unordered',
             'article.blocks.2.data.items' => 'required|array|max:100',
@@ -205,7 +195,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
             'article.blocks.3.data.withHeadings' => 'required|boolean',
             'article.blocks.3.data.content' => 'required|array|max:200',
             'article.blocks.3.data.content.*' => 'required|array|max:20',
-            'article.blocks.3.data.content.*.*' => 'required|string|max:255',
+            'article.blocks.3.data.content.*.*' => ['required', 'string', 'max:255', $allowedHtmlRule],
             'article.blocks.4.data.withBorder' => 'sometimes|boolean',
             'article.blocks.4.data.withBackground' => 'sometimes|boolean',
             'article.blocks.4.data.stretched' => 'sometimes|boolean',
@@ -221,6 +211,10 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
             'article.blocks.6.data.embed' => ['required', 'url', 'regex:/https:\/\/coub\.com\/embed\/([^\/\?\&]+)/'],
             'article.blocks.6.data.width' => 'sometimes|integer|min:1',
             'article.blocks.6.data.height' => 'sometimes|integer|min:1',
+            'article.blocks.7.data.cols.0.version' => [
+                'required',
+                'in:2.22.2'
+            ],
             'article.blocks.7.data.cols.0' => [
                 'required',
                 'array'
@@ -246,7 +240,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                 'required',
                 'string',
                 'max:2500',
-                $allowedParagraphHtmlRule
+                $allowedHtmlRule
             ],
             'article.blocks.7.data.cols.0.blocks.1.data.style' => 'required|in:ordered,unordered',
             'article.blocks.7.data.cols.0.blocks.1.data.items' => 'required|array|max:100',
@@ -255,11 +249,15 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                 'required',
                 'string',
                 'max:2500',
-                $allowedParagraphHtmlRule
+                $allowedHtmlRule
             ],
             'article.blocks.7.data.cols.1' => [
                 'required',
                 'array'
+            ],
+            'article.blocks.7.data.cols.1.version' => [
+                'required',
+                'in:2.22.2'
             ],
             'article.blocks.7.data.cols.1.blocks' => [
                 'required',
@@ -282,7 +280,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                 'required',
                 'string',
                 'max:2500',
-                $allowedParagraphHtmlRule
+                $allowedHtmlRule
             ],
             'additional_field' => 'required|integer|size:42',
             'article.blocks.7.data.cols.1.blocks.1.data.level' => 'required|integer|min:3|max:6',
@@ -290,48 +288,46 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
         ];
     }
 
-    public function getExpectedMessages(): array
+    public function getExpectedPossibleMessages(): array
     {
-        return [];
+        return [
+            "article.blocks.0.data.text.max" => "Headers for this article may not exceed 255 characters.",
+            "article.blocks.1.data.text.max" => "Paragraphs for this article may not exceed 2500 characters.",
+            "article.blocks.2.data.items" => "lists in this article may not exceed 100 items.",
+            "article.blocks.2.data.items.*" => "list items in this article may not exceed 500 characters.",
+            "article.blocks.3.data.content" => "tables in this article may not exceed 200 rows.",
+            "article.blocks.3.data.content.*" => "tables in this article may not exceed 20 columns.",
+            "article.blocks.3.data.content.*.*" => "table cells in this article may not exceed 255 characters.",
+            "article.blocks.4.data.caption" => "captions of images in this article may not exceed 255 characters.",
+            "article.blocks.6.data.caption" => "captions of embedded content in this article may not exceed 255 characters.",
+            "article.blocks.7.data.cols.0.blocks.0.data.text.max" => "Paragraphs for this article may not exceed 2500 characters.",
+            "article.blocks.7.data.cols.0.blocks.1.data.items" => "lists in this article may not exceed 100 items.",
+            "article.blocks.7.data.cols.0.blocks.1.data.items.*" => "list items in this article may not exceed 500 characters.",
+            "article.blocks.7.data.cols.0.blocks.2.data.text.max" => "Paragraphs for this article may not exceed 2500 characters.",
+            "article.blocks.7.data.cols.1.blocks.0.data.text.max" => "Paragraphs for this article may not exceed 2500 characters.",
+            "article.blocks.7.data.cols.1.blocks.1.data.text.max" => "Headers for this article may not exceed 255 characters.",
+            "additional_field.required" => "The additional field is required.",
+            "additional_field.integer" => "The additional field must be an integer.",
+            "additional_field.size" => "The additional field must be 42, the answer of the universe."
+        ];
     }
 
     public function getExpectedOutput(): array
     {
         return [
             "article" => [
+                'version' => '2.22.2',
                 "blocks" => [
                     [
                         "data" => [
                             "level" => 2,
-                            "text" => "Dit is een <span style=\"color: #00FF00;\">test</span> heading"
+                            "text" => "Dit is een test heading"
                         ],
                         "type" => "header"
                     ],
                     [
                         "data" => [
-                            "text" => [
-                                "Dit is een test paragraaf met een ",
-                                [
-                                    "tag" => "a",
-                                    "attributes" => [
-                                        "href" => "https://google.nl"
-                                    ],
-                                    "children" => [
-                                        [
-                                            "tag" => "span",
-                                            "attributes" => [
-                                                "style" => [
-                                                    "color" => "#FF00FF"
-                                                ]
-                                            ],
-                                            "children" => [
-                                                "dikgedrukte"
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                " link"
-                            ]
+                            "text" => "Dit is een test paragraaf met een <a href=\"https://google.nl\"><span style=\"color: #FF00FF;\">dikgedrukte</span></a> link"
                         ],
                         "type" => "paragraph"
                     ],
@@ -340,7 +336,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                             "style" => "ordered",
                             "items" => [
                                 "Lijst item een",
-                                "Lijst <a href=\"https://youtube.com\">item</a><b><i></i></b> twee",
+                                "Lijst item twee",
                                 "Lijst item drie"
                             ]
                         ],
@@ -356,7 +352,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                                 ],
                                 [
                                     "Kolomn 3",
-                                    "<b><i><font style=\"color: #00FFFF;\">kolomn</font></i></b> 4"
+                                    "<b><i><span style=\"color: #00FFFF;\">kolomn</span></i></b> 4"
                                 ]
                             ]
                         ],
@@ -398,6 +394,7 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                         "data" => [
                             "cols" => [
                                 [
+                                    'version' => '2.22.2',
                                     "blocks" => [
                                         [
                                             "data" => [
@@ -424,6 +421,220 @@ class RequestTestScenarioHappyFlowHtmlToJsonDataHelper extends RequestTestScenar
                                     ]
                                 ],
                                 [
+                                    'version' => '2.22.2',
+                                    "blocks" => [
+                                        [
+                                            "data" => [
+                                                "text" => "test2"
+                                            ],
+                                            "type" => "paragraph"
+                                        ],
+                                        [
+                                            "data" => [
+                                                "level" => 3,
+                                                "text" => "bwoah"
+                                            ],
+                                            "type" => "header"
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "type" => "columns"
+                    ]
+                ]
+            ],
+            "additional_field" => 42
+        ];
+    }
+
+    public function getExpectedJsonizedOutput(): array
+    {
+        return [
+            "article" => [
+                'version' => '2.22.2',
+                "blocks" => [
+                    [
+                        "data" => [
+                            "level" => 2,
+                            "text" => "Dit is een test heading"
+                        ],
+                        "type" => "header"
+                    ],
+                    [
+                        "data" => [
+                            "text" => [
+                                "Dit is een test paragraaf met een ",
+                                [
+                                    "tag" => "a",
+                                    "attributes" => [
+                                        "href" => "https://google.nl"
+                                    ],
+                                    "children" => [
+                                        [
+                                            "tag" => "span",
+                                            "attributes" => [
+                                                "style" => [
+                                                    "color" => "#FF00FF"
+                                                ]
+                                            ],
+                                            "children" => [
+                                                "dikgedrukte"
+                                            ]
+                                        ]
+                                    ]
+                                ],
+                                " link"
+                            ]
+                        ],
+                        "type" => "paragraph"
+                    ],
+                    [
+                        "data" => [
+                            "style" => "ordered",
+                            "items" => [
+                                "Lijst item een",
+                                "Lijst item twee",
+                                "Lijst item drie"
+                            ]
+                        ],
+                        "type" => "list"
+                    ],
+                    [
+                        "data" => [
+                            "withHeadings" => true,
+                            "content" => [
+                                [
+                                    [
+                                        [
+                                            "tag" => "i",
+                                            "children" => [
+                                                [
+                                                    "tag" => "span",
+                                                    "attributes" => [
+                                                        "style" => [
+                                                            "color" => "#0000FF"
+                                                        ]
+                                                    ],
+                                                    "children" => [
+                                                        [
+                                                            "tag" => "span",
+                                                            "attributes" => [
+                                                                "style" => [
+                                                                    "color" => "#FF0000"
+                                                                ]
+                                                            ],
+                                                            "children" => [
+                                                                "Kolomn"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        " 1"
+                                    ],
+                                    [
+                                        "Kolomn 2"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "Kolomn 3"
+                                    ],
+                                    [
+                                        [
+                                            "tag" => "b",
+                                            "children" => [
+                                                [
+                                                    "tag" => "i",
+                                                    "children" => [
+                                                        [
+                                                            "tag" => "span",
+                                                            "attributes" => [
+                                                                "style" => [
+                                                                    "color" => "#00FFFF"
+                                                                ]
+                                                            ],
+                                                            "children" => [
+                                                                "kolomn"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        " 4"
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "type" => "table"
+                    ],
+                    [
+                        "data" => [
+                            "withBorder" => false,
+                            "withBackground" => false,
+                            "stretched" => true,
+                            "file" => [
+                                "url" => "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg"
+                            ],
+                            "caption" => "Roadster // tesla.com"
+                        ],
+                        "type" => "image"
+                    ],
+                    [
+                        "data" => [
+                            "canDownload" => true,
+                            "file" => [
+                                "url" => "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.mp3"
+                            ]
+                        ],
+                        "type" => "audio"
+                    ],
+                    [
+                        "data" => [
+                            "caption" => "My Life",
+                            "service" => "coub",
+                            "source" => "https://coub.com/view/1czcdf",
+                            "embed" => "https://coub.com/embed/1czcdf",
+                            "width" => 580,
+                            "height" => 320
+                        ],
+                        "type" => "embed"
+                    ],
+                    [
+                        "data" => [
+                            "cols" => [
+                                [
+                                    'version' => '2.22.2',
+                                    "blocks" => [
+                                        [
+                                            "data" => [
+                                                "text" => "test"
+                                            ],
+                                            "type" => "paragraph"
+                                        ],
+                                        [
+                                            "data" => [
+                                                "style" => "ordered",
+                                                "items" => [
+                                                    "Pwoah",
+                                                    "test"
+                                                ]
+                                            ],
+                                            "type" => "list"
+                                        ],
+                                        [
+                                            "data" => [
+                                                "text" => "asdad"
+                                            ],
+                                            "type" => "paragraph"
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'version' => '2.22.2',
                                     "blocks" => [
                                         [
                                             "data" => [

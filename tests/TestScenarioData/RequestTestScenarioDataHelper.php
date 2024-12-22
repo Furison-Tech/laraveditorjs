@@ -1,23 +1,24 @@
 <?php
 
-namespace TestData;
+namespace TestScenarioData;
 
 use FurisonTech\LaraveditorJS\EditorJSFormRequest;
+use TestObjects\MockEditorJSFormRequest;
 
 abstract class RequestTestScenarioDataHelper
 {
     private EditorJSFormRequest $formRequest;
 
-    public function __construct(EditorJSFormRequest $formRequest)
+    public function __construct()
     {
-        $this->formRequest = $formRequest;
+        $this->formRequest = new MockEditorJSFormRequest();
     }
 
     public abstract function getRequestData(): array;
 
     public abstract function getExpectedRules(): array;
 
-    public abstract function getExpectedMessages(): array;
+    public abstract function getExpectedPossibleMessages(): array;
 
     public abstract function getExpectedOutput(): array;
 

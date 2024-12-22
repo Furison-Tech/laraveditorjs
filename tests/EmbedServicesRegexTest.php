@@ -5,7 +5,6 @@ use PHPUnit\Framework\TestCase;
 
 class EmbedServicesRegexTest extends TestCase
 {
-    //todo: unit test to test that https://, http://, www., unallowedwebsite.com fails default services regexes
 
     public function testGetRegexRulesForAllServices()
     {

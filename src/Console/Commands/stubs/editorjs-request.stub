@@ -8,6 +8,8 @@ class {{ class }} extends EditorJSFormRequest
 {
     public function __construct()
     {
+        $blockTypeMaxOccurences = [];
+
         parent::__construct([
             // Add your EditorJSRequestFieldRuleBuilder instances here
         ]);
@@ -39,7 +41,7 @@ class {{ class }} extends EditorJSFormRequest
      *
      * @return array
      */
-    protected function additionalRulesErrorMessages(): array
+    protected function additionalMessages(): array
     {
         return [
             // Add custom error messages for your additional rules here, if any.

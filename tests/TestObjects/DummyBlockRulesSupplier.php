@@ -1,6 +1,6 @@
 <?php
 
-namespace TestDummies;
+namespace TestObjects;
 
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
 
