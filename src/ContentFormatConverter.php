@@ -3,7 +3,6 @@
 namespace FurisonTech\LaraveditorJS;
 
 use DOMDocument;
-use Exception;
 use FurisonTech\LaraveditorJS\Exceptions\InvalidHtmlException;
 
 class ContentFormatConverter {
@@ -19,10 +18,6 @@ class ContentFormatConverter {
 
         // The root node <template> wraps the provided HTML content
         $templateNode = $domDocument->getElementsByTagName('template')->item(0);
-
-        if (!$templateNode) {
-            throw new InvalidHtmlException("Failed to parse the HTML string.", $htmlString, $allowList);
-        }
 
         // Process the children of the <template> node, but exclude the template tag itself from the output
         $jsonOutput = [];

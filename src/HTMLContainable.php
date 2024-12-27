@@ -2,7 +2,7 @@
 
 namespace FurisonTech\LaraveditorJS;
 
-interface ContentFormatConvertable
+interface HTMLContainable
 {
     public function htmlableBlockDataFields(): array;
     public function allowedHtmlTagsAndAttributes(): array;

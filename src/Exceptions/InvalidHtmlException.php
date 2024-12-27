@@ -6,12 +6,25 @@ use Exception;
 
 class InvalidHtmlException extends Exception
 {
+    private string $inputHtmlString;
+    private array $allowList;
+
+    public function getAllowList(): array
+    {
+        return $this->allowList;
+    }
+
+    public function getInputHtmlString(): string
+    {
+        return $this->inputHtmlString;
+    }
+
+
     public function __construct(string $message, string $inputHtmlString, array $allowList)
     {
-        parent::__construct(json_encode([
-            'message' => $message,
-            'inputHtmlString' => $inputHtmlString,
-            'allowList' => $allowList
-        ]));
+        $this->inputHtmlString = $inputHtmlString;
+        $this->allowList = $allowList;
+
+        parent::__construct($message);
     }
 }

@@ -3,9 +3,9 @@
 namespace TestObjects;
 
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ParagraphBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\ContentFormatConvertable;
+use FurisonTech\LaraveditorJS\HTMLContainable;
 
-class MockConvertableParagraphBlockRulesSupplier extends ParagraphBlockRulesSupplier implements ContentFormatConvertable
+class MockConvertableParagraphBlockRulesSupplier extends ParagraphBlockRulesSupplier implements HTMLContainable
 {
 
     public function __construct(int $maxLength)

@@ -9,4 +9,11 @@ class ColumnBlockRulesSupplier extends NestedBlockRulesSupplier
     {
         parent::__construct($BlockRulesSuppliers ,'columns', 'cols');
     }
+
+    protected function miscDataFieldsRules(): array
+    {
+        return [
+            'cols' => 'required|array|min:2|max:3',
+        ];
+    }
 }

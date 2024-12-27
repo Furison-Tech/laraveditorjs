@@ -35,10 +35,6 @@ abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
         $rules = $this->miscDataFieldsRules();
 
         if ( isset($this->nestedData[$this->nestedFieldKey]) && is_array($this->nestedData[$this->nestedFieldKey]) ){
-            //todo: also add required|array rule here for nested field and merge with any additional rules for this key
-            // if any for that key are received from $this->miscDataFieldsRules();
-            // also do not forget to explode on | if value for key is a string.
-
             for($i = 0; $i < count($this->nestedData[$this->nestedFieldKey]); $i++){
                 $data = $this->nestedData[$this->nestedFieldKey][$i];
                 $rules = array_merge($rules,
@@ -55,10 +51,6 @@ abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
         $rules = $this->miscDataFieldsErrorMessages();
 
         if ( isset($this->nestedData[$this->nestedFieldKey]) && is_array($this->nestedData[$this->nestedFieldKey]) ){
-            //todo: also add required|array rule here for nested field and merge with any additional rules for this key
-            // if any for that key are received from $this->miscDataFieldsRules();
-            // also do not forget to explode on | if value for key is a string.
-
             for($i = 0; $i < count($this->nestedData[$this->nestedFieldKey]); $i++){
                 $data = $this->nestedData[$this->nestedFieldKey][$i];
                 $rules = array_merge($rules, $this->ruleBuilder->buildMessages("$this->nestedFieldKey.$i", $data));

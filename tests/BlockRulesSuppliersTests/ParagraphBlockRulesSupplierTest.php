@@ -9,7 +9,7 @@ class ParagraphBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new ParagraphBlockRulesSupplier(255, 1);
+        $supplier = new ParagraphBlockRulesSupplier(255);
 
         $rules = $supplier->rules();
 

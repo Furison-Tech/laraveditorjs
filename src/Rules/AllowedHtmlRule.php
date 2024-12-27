@@ -6,6 +6,7 @@ use Closure;
 use FurisonTech\LaraveditorJS\ContentFormatConverter;
 use FurisonTech\LaraveditorJS\Exceptions\InvalidHtmlException;
 use Illuminate\Contracts\Validation\ValidationRule;
+use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class AllowedHtmlRule implements ValidationRule
 {
@@ -35,7 +36,7 @@ class AllowedHtmlRule implements ValidationRule
 
     public function getError(): InvalidHtmlException|null
     {
-        return $this->error;
+        return $this->error ?? null;
     }
 
     public function getConvertedJson(): array

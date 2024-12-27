@@ -4,6 +4,9 @@ namespace FurisonTech\LaraveditorJS\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MakeEditorJSFormRequest extends GeneratorCommand
 {
     protected $name = 'make:editorjs-request';

@@ -9,6 +9,7 @@ class RequestTestScenarioMaxBlocksErrorHelper extends RequestTestScenarioDataHel
     {
         return [
             'article' => [
+                'time' => 1730310036407,
                 'version' => '2.22.2',
                 'blocks' => [
                     [
@@ -44,7 +45,6 @@ class RequestTestScenarioMaxBlocksErrorHelper extends RequestTestScenarioDataHel
                         ]
                     ],
                 ],
-                'time' => 1213123123123123
             ],
             'additional_field' => 42
         ];
@@ -54,9 +54,11 @@ class RequestTestScenarioMaxBlocksErrorHelper extends RequestTestScenarioDataHel
     {
         return [
             "article" => ["required", "array"],
+            "article.time" => ["required", "integer"],
             "article.version" => ["required", "in:2.22.2"],
             "article.blocks" => ["required", "array"],
             "article.blocks.*" => ["required", "array"],
+            "article.blocks.*.id" => ['required', 'string', 'size:10'],
             "article.blocks.*.type" => ["required", "string", "in:table,header,paragraph,image,audio,embed,list,columns"],
             "article.blocks.*.data" => ["required", "array"],
             "article.blocks.0.data.text" => "required|string|max:255",
@@ -89,5 +91,10 @@ class RequestTestScenarioMaxBlocksErrorHelper extends RequestTestScenarioDataHel
     public function getExpectedOutput(): array
     {
         return ["article.blocks.3" => ["The block of type 'header' may not occur more than 3 times. This is the 4th occurrence."]];
+    }
+
+    public function getExpectedHtmlValidationErrors(): array
+    {
+        return [];
     }
 }

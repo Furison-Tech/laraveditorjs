@@ -48,10 +48,12 @@ class EditorJSRequestFieldRuleBuilder
 
         // Initial validation rules
         $rules["$field"] = ['required', 'array'];
+        $rules["$field.time"] = ['required', "integer"];
         $rules["$field.version"] = ['required', "in:".implode(",", $allowedVersions)];
         $rules["$field.blocks"] = ['required', 'array'];
         $rules["$field.blocks.*"] = ['required', 'array'];
 
+        $rules["$field.blocks.*.id"] = ['required', 'string', 'size:10'];
         $rules["$field.blocks.*.type"] = ['required', 'string', 'in:'.implode(',', array_keys($this->blockRuleSuppliers))];
         $rules["$field.blocks.*.data"] = ['required', 'array'];
 
@@ -86,7 +88,7 @@ class EditorJSRequestFieldRuleBuilder
             foreach ($dataRules as $key => $rule) {
                 $absoluteKey = "$field.blocks.$index.data.$key";
 
-                if ($supplier instanceof ContentFormatConvertable &&
+                if ($supplier instanceof HTMLContainable &&
                     in_array($key, $supplier->htmlableBlockDataFields())) {
 
                     $rule = is_array($rule) ? $rule : explode('|', $rule);

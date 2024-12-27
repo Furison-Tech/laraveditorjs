@@ -3,9 +3,9 @@
 namespace TestObjects;
 
 use FurisonTech\LaraveditorJS\BlockRulesSuppliers\TableBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\ContentFormatConvertable;
+use FurisonTech\LaraveditorJS\HTMLContainable;
 
-class MockConvertableTableBlockRulesSupplier extends TableBlockRulesSupplier implements ContentFormatConvertable
+class MockConvertableTableBlockRulesSupplier extends TableBlockRulesSupplier implements HTMLContainable
 {
     public function __construct(int $maxRows, int $maxColumns, int $maxTextLength)
     {

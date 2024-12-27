@@ -11,10 +11,11 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
     {
         return [
             'article' => [
+                'time' => 1730310036407,
                 'version' => '2.22.2',
                 'blocks' => [
                     [
-                        'id' => '8dDU550iMy',
+                        'id' => '8dDU550iMa',
                         'type' => 'header',
                         'data' => [
                             'text' => 'Dit is een test heading',
@@ -22,14 +23,14 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
-                        'id' => 'giYxDG3DZx',
+                        'id' => '8dDU550iMb',
                         'type' => 'paragraph',
                         'data' => [
                             'text' => 'Dit is een test paragraaf met een <a href="https://google.nl"><span style="color: #FF00FF;">dikgedrukte</span></a> link',
                         ]
                     ],
                     [
-                        'id' => 'lWBwJX0Q8j',
+                        'id' => '8dDU550iMc',
                         'type' => 'list',
                         'data' => [
                             'style' => 'ordered',
@@ -41,7 +42,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
-                        'id' => 'GHRiO1tLCC',
+                        'id' => '8dDU550iMd',
                         'type' => 'table',
                         'data' => [
                             'withHeadings' => true,
@@ -58,7 +59,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
-                        'id' => 'GHRiO1tLCD',
+                        'id' => '8dDU550iMe',
                         'type' => 'image',
                         'data' => [
                             'file' => [
@@ -71,7 +72,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
-                        'id' => 'GHRiO1tLCE',
+                        'id' => '8dDU550iMf',
                         'type' => 'audio',
                         'data' => [
                             'file' => [
@@ -81,6 +82,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
+                        'id' => '8dDU550iMg',
                         'type' => 'embed',
                         'data' => [
                             'service' => 'coub',
@@ -92,22 +94,22 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ],
                     [
-                        'id' => 'BVOoPd1qjD',
+                        'id' => '8dDU550iMh',
                         'type' => 'columns',
                         'data' => [
                             'cols' => [
                                 [
-                                    'time' => 1730030546507,
+                                    'time' => 1730310036407,
                                     'blocks' => [
                                         [
-                                            'id' => 'p0Xe7vQePh',
+                                            'id' => '8dDU550iMi',
                                             'type' => 'paragraph',
                                             'data' => [
                                                 'text' => 'test'
                                             ]
                                         ],
                                         [
-                                            'id' => 'RGowT2udzC',
+                                            'id' => '8dDU550iMj',
                                             'type' => 'list',
                                             'data' => [
                                                 'style' => 'ordered',
@@ -115,7 +117,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                             ]
                                         ],
                                         [
-                                            'id' => '8jm3Aejg3o',
+                                            'id' => '8dDU550iMk',
                                             'type' => 'paragraph',
                                             'data' => ['text' => 'asdad']
                                         ]
@@ -123,17 +125,17 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                     'version' => '2.22.2'
                                 ],
                                 [
-                                    'time' => 1730030546507,
+                                    'time' => 1730310036407,
                                     'blocks' => [
                                         [
-                                            'id' => 'eywNVBgCHa',
+                                            'id' => '8dDU550iMl',
                                             'type' => 'paragraph',
                                             'data' => [
                                                 'text' => 'test2'
                                             ]
                                         ],
                                         [
-                                            'id' => '1yPmWMR9Gw',
+                                            'id' => '8dDU550iMm',
                                             'type' => 'header',
                                             'data' => [
                                                 'text' => 'bwoah',
@@ -147,7 +149,6 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         ]
                     ]
                 ],
-                'time' => 1213123123123123
             ],
             'additional_field' => 42
         ];
@@ -172,9 +173,11 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
 
         return [
             'article' => ['required', 'array'],
+            'article.time' => ['required', 'integer'],
             'article.version' => ['required', 'in:2.22.2'],
             'article.blocks' => ['required', 'array'],
             'article.blocks.*' => ['required', 'array'],
+            'article.blocks.*.id' => ['required', 'string', 'size:10'],
             'article.blocks.*.type' => [
                 'required',
                 'string',
@@ -211,6 +214,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
             'article.blocks.6.data.embed' => ['required', 'url', 'regex:/https:\/\/coub\.com\/embed\/([^\/\?\&]+)/'],
             'article.blocks.6.data.width' => 'sometimes|integer|min:1',
             'article.blocks.6.data.height' => 'sometimes|integer|min:1',
+            'article.blocks.7.data.cols.0.time' => ['required', 'integer'],
             'article.blocks.7.data.cols.0.version' => [
                 'required',
                 'in:2.22.2'
@@ -255,6 +259,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                 'required',
                 'array'
             ],
+            'article.blocks.7.data.cols.1.time' => ['required', 'integer'],
             'article.blocks.7.data.cols.1.version' => [
                 'required',
                 'in:2.22.2'
@@ -284,7 +289,10 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
             ],
             'additional_field' => 'required|integer|size:42',
             'article.blocks.7.data.cols.1.blocks.1.data.level' => 'required|integer|min:3|max:6',
-            'article.blocks.7.data.cols.1.blocks.1.data.text' => 'required|string|max:255'
+            'article.blocks.7.data.cols.1.blocks.1.data.text' => 'required|string|max:255',
+            'article.blocks.7.data.cols' => 'required|array|min:2|max:3',
+            'article.blocks.7.data.cols.0.blocks.*.id' => ['required', 'string', 'size:10'],
+            'article.blocks.7.data.cols.1.blocks.*.id' => ['required', 'string', 'size:10']
         ];
     }
 
@@ -316,9 +324,11 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
     {
         return [
             "article" => [
+                'time' => 1730310036407,
                 'version' => '2.22.2',
                 "blocks" => [
                     [
+                        "id" => "8dDU550iMa",
                         "data" => [
                             "level" => 2,
                             "text" => "Dit is een test heading"
@@ -326,12 +336,14 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "header"
                     ],
                     [
+                        "id" => "8dDU550iMb",
                         "data" => [
                             "text" => "Dit is een test paragraaf met een <a href=\"https://google.nl\"><span style=\"color: #FF00FF;\">dikgedrukte</span></a> link"
                         ],
                         "type" => "paragraph"
                     ],
                     [
+                        "id" => "8dDU550iMc",
                         "data" => [
                             "style" => "ordered",
                             "items" => [
@@ -343,6 +355,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "list"
                     ],
                     [
+                        "id" => "8dDU550iMd",
                         "data" => [
                             "withHeadings" => true,
                             "content" => [
@@ -359,6 +372,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "table"
                     ],
                     [
+                        "id" => "8dDU550iMe",
                         "data" => [
                             "withBorder" => false,
                             "withBackground" => false,
@@ -371,6 +385,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "image"
                     ],
                     [
+                        "id" => "8dDU550iMf",
                         "data" => [
                             "canDownload" => true,
                             "file" => [
@@ -380,6 +395,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "audio"
                     ],
                     [
+                        "id" => "8dDU550iMg",
                         "data" => [
                             "caption" => "My Life",
                             "service" => "coub",
@@ -391,18 +407,22 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "embed"
                     ],
                     [
+                        "id" => "8dDU550iMh",
                         "data" => [
                             "cols" => [
                                 [
+                                    'time' => 1730310036407,
                                     'version' => '2.22.2',
                                     "blocks" => [
                                         [
+                                            "id" => "8dDU550iMi",
                                             "data" => [
                                                 "text" => "test"
                                             ],
                                             "type" => "paragraph"
                                         ],
                                         [
+                                            "id" => "8dDU550iMj",
                                             "data" => [
                                                 "style" => "ordered",
                                                 "items" => [
@@ -413,6 +433,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                             "type" => "list"
                                         ],
                                         [
+                                            "id" => "8dDU550iMk",
                                             "data" => [
                                                 "text" => "asdad"
                                             ],
@@ -421,15 +442,18 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                     ]
                                 ],
                                 [
+                                    'time' => 1730310036407,
                                     'version' => '2.22.2',
                                     "blocks" => [
                                         [
+                                            "id" => "8dDU550iMl",
                                             "data" => [
                                                 "text" => "test2"
                                             ],
                                             "type" => "paragraph"
                                         ],
                                         [
+                                            "id" => "8dDU550iMm",
                                             "data" => [
                                                 "level" => 3,
                                                 "text" => "bwoah"
@@ -452,9 +476,11 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
     {
         return [
             "article" => [
+                'time' => 1730310036407,
                 'version' => '2.22.2',
                 "blocks" => [
                     [
+                        "id" => "8dDU550iMa",
                         "data" => [
                             "level" => 2,
                             "text" => "Dit is een test heading"
@@ -462,6 +488,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "header"
                     ],
                     [
+                        "id" => "8dDU550iMb",
                         "data" => [
                             "text" => [
                                 "Dit is een test paragraaf met een ",
@@ -490,6 +517,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "paragraph"
                     ],
                     [
+                        "id" => "8dDU550iMc",
                         "data" => [
                             "style" => "ordered",
                             "items" => [
@@ -501,6 +529,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "list"
                     ],
                     [
+                        "id" => "8dDU550iMd",
                         "data" => [
                             "withHeadings" => true,
                             "content" => [
@@ -572,6 +601,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "table"
                     ],
                     [
+                        "id" => "8dDU550iMe",
                         "data" => [
                             "withBorder" => false,
                             "withBackground" => false,
@@ -584,6 +614,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "image"
                     ],
                     [
+                        "id" => "8dDU550iMf",
                         "data" => [
                             "canDownload" => true,
                             "file" => [
@@ -593,6 +624,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "audio"
                     ],
                     [
+                        "id" => "8dDU550iMg",
                         "data" => [
                             "caption" => "My Life",
                             "service" => "coub",
@@ -604,18 +636,22 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                         "type" => "embed"
                     ],
                     [
+                        "id" => "8dDU550iMh",
                         "data" => [
                             "cols" => [
                                 [
+                                    'time' => 1730310036407,
                                     'version' => '2.22.2',
                                     "blocks" => [
                                         [
+                                            "id" => "8dDU550iMi",
                                             "data" => [
                                                 "text" => "test"
                                             ],
                                             "type" => "paragraph"
                                         ],
                                         [
+                                            "id" => "8dDU550iMj",
                                             "data" => [
                                                 "style" => "ordered",
                                                 "items" => [
@@ -626,6 +662,7 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                             "type" => "list"
                                         ],
                                         [
+                                            "id" => "8dDU550iMk",
                                             "data" => [
                                                 "text" => "asdad"
                                             ],
@@ -634,15 +671,18 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
                                     ]
                                 ],
                                 [
+                                    'time' => 1730310036407,
                                     'version' => '2.22.2',
                                     "blocks" => [
                                         [
+                                            "id" => "8dDU550iMl",
                                             "data" => [
                                                 "text" => "test2"
                                             ],
                                             "type" => "paragraph"
                                         ],
                                         [
+                                            "id" => "8dDU550iMm",
                                             "data" => [
                                                 "level" => 3,
                                                 "text" => "bwoah"
@@ -659,5 +699,10 @@ class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
             ],
             "additional_field" => 42
         ];
+    }
+
+    public function getExpectedHtmlValidationErrors(): array
+    {
+        return [];
     }
 }

@@ -7,8 +7,6 @@ class HtmlToJsonConverterTest extends TestCase
 {
     public function testHtmlToJson()
     {
-        //todo: expected vs actual op de juiste plaats check, en AAA
-
         $htmlString = 'This is a <span style="color: #0F0"><a href="https://en.wikipedia.org/wiki/HTML">HTML</a> String</span>!';
         $allowList = [
             'span' => [
@@ -49,6 +47,28 @@ class HtmlToJsonConverterTest extends TestCase
                 ]
             ],
             "!"
+        ];
+
+        $result = ContentFormatConverter::htmlToJson($htmlString, $allowList);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testHtmlToJsonWithNonTextOrElementNodeTypes()
+    {
+        $htmlString = '<p>this line <!-- has a comment -->!</p>';
+        $allowList = [
+            'p' => [],
+        ];
+
+        $expected = [
+            [
+                "tag" => "p",
+                "children" => [
+                    "this line ",
+                    "!"
+                ]
+            ]
         ];
 
         $result = ContentFormatConverter::htmlToJson($htmlString, $allowList);

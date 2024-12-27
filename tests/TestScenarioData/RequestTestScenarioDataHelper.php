@@ -22,6 +22,8 @@ abstract class RequestTestScenarioDataHelper
 
     public abstract function getExpectedOutput(): array;
 
+    public abstract function getExpectedHtmlValidationErrors(): array;
+
     public final function getHydratedFormRequest(): EditorJSFormRequest
     {
         $formRequest = $this->formRequest;
