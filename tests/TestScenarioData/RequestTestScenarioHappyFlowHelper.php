@@ -2,9 +2,10 @@
 
 namespace TestScenarioData;
 
+require_once __DIR__ . '/RequestTestScenarioJsonizableDataHelper.php';
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
 
-class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioDataHelper
+class RequestTestScenarioHappyFlowHelper extends RequestTestScenarioJsonizableDataHelper
 {
 
     public function getRequestData(): array

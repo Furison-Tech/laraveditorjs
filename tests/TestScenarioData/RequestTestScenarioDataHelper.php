@@ -9,9 +9,9 @@ abstract class RequestTestScenarioDataHelper
 {
     private EditorJSFormRequest $formRequest;
 
-    public function __construct()
+    public function __construct($formRequest = new MockEditorJSFormRequest())
     {
-        $this->formRequest = new MockEditorJSFormRequest();
+        $this->formRequest = $formRequest;
     }
 
     public abstract function getRequestData(): array;

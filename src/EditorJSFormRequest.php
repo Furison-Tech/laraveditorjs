@@ -69,7 +69,7 @@ abstract class EditorJSFormRequest extends FormRequest
         return [];
     }
 
-    public function getJsonizedData($articleFieldsOnly = false): array
+    public function getRequestDataArticlesJsonized(): array
     {
         $data = $this->validated();
 
@@ -86,13 +86,6 @@ abstract class EditorJSFormRequest extends FormRequest
                     data_set($data, $ruleField, $allowedHtmlRule->getConvertedJson()[$ruleField]);
                 }
             }
-        }
-
-        if ($articleFieldsOnly) {
-            $data = array_intersect_key(
-                $data,
-                array_flip(array_keys($this->editorJSFieldRuleBuilders))
-            );
         }
 
         return $data;

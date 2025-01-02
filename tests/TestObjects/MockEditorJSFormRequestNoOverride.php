@@ -2,6 +2,7 @@
 
 namespace TestObjects;
 
+use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ParagraphBlockRulesSupplier;
 use FurisonTech\LaraveditorJS\EditorJSFormRequest;
 use FurisonTech\LaraveditorJS\EditorJSRequestFieldRuleBuilder;
 
@@ -12,7 +13,7 @@ class MockEditorJSFormRequestNoOverride extends EditorJSFormRequest
         $fieldRulesSuppliersMap = [
             "article" => new EditorJSRequestFieldRuleBuilder(
                 [],
-                new MockConvertableParagraphBlockRulesSupplier(2500),
+                new ParagraphBlockRulesSupplier(2500),
             )
         ];
 

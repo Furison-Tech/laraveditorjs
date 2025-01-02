@@ -24,6 +24,12 @@ class LaraveditorJSServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'laraveditorjs');
 
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../../resources/views' => $this->app->resourcePath('views/vendor/laraveditorjs'),
+            ], 'laraveditorjs-views');
+        }
     }
 }
