@@ -2,16 +2,16 @@
 
 namespace BlockRulesSuppliersTests;
 
-require_once __DIR__ . '/../TestObjects/DummyBlockRulesSupplier.php';
+require_once __DIR__ . '/../TestObjects/DummyBlock.php';
 
 use PHPUnit\Framework\TestCase;
-use TestObjects\DummyBlockRulesSupplier;
+use TestObjects\DummyBlock;
 
 class BlockRulesSupplierTest extends TestCase
 {
     public function testGetBlockTypeReturnsBlock(): void
     {
-        $supplier = new DummyBlockRulesSupplier();
+        $supplier = new DummyBlock();
 
         $blockType = $supplier->getBlockType();
 
@@ -20,7 +20,7 @@ class BlockRulesSupplierTest extends TestCase
 
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new DummyBlockRulesSupplier();
+        $supplier = new DummyBlock();
 
         $rules = $supplier->rules();
 
@@ -30,7 +30,7 @@ class BlockRulesSupplierTest extends TestCase
 
     public function testGetRulesErrorMessagesReturnsExpectedArray(): void
     {
-        $supplier = new DummyBlockRulesSupplier();
+        $supplier = new DummyBlock();
 
         $messages = $supplier->errorMessages();
 

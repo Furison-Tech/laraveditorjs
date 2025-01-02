@@ -2,14 +2,14 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\HeaderBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\HeaderBlock;
 use PHPUnit\Framework\TestCase;
 
 class HeaderBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new HeaderBlockRulesSupplier(255, 2,6,1);
+        $supplier = new HeaderBlock(255, 2,6,1);
 
         $rules = $supplier->rules();
 

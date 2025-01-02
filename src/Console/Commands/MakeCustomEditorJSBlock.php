@@ -7,13 +7,13 @@ use Illuminate\Console\GeneratorCommand;
 /**
  * @codeCoverageIgnore
  */
-class MakeCustomBlockRulesSupplier extends GeneratorCommand
+class MakeCustomEditorJSBlock extends GeneratorCommand
 {
-    protected $name = 'make:editorjs-blockrulessupplier';
+    protected $name = 'make:editorjs-block';
 
-    protected $description = 'Create a custom BlockRulesSupplier class';
+    protected $description = 'Create a custom EditorJS Block class';
 
-    protected $type = 'BlockRulesSupplier';
+    protected $type = 'EditorJS Block';
 
     /**
      * Get the stub file for the generator.
@@ -22,7 +22,7 @@ class MakeCustomBlockRulesSupplier extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return __DIR__ . '/stubs/editorjs-blockrulessupplier.stub';
+        return __DIR__ . '/stubs/editorjs-block.stub';
     }
 
     /**
@@ -33,7 +33,7 @@ class MakeCustomBlockRulesSupplier extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace . '\Services\LaraveditorJS\CustomBlockRulesSuppliers';
+        return $rootNamespace . '\Services\LaraveditorJS\EditorJSBlocks';
     }
 
     /**

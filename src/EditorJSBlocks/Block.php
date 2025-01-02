@@ -1,8 +1,8 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-abstract class BlockRulesSupplier
+abstract class Block
 {
     private string $blockType;
 

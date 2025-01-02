@@ -1,8 +1,8 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-class AudioBlockRulesSupplier extends BlockRulesSupplier
+class AudioBlock extends Block
 {
     private string|null $urlRegex;
 

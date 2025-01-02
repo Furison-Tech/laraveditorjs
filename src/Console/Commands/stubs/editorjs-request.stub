@@ -3,16 +3,26 @@
 namespace {{ namespace }};
 
 use FurisonTech\LaraveditorJS\EditorJSFormRequest;
+use FurisonTech\LaraveditorJS\EditorJSRequestFieldRuleBuilder;
 
 class {{ class }} extends EditorJSFormRequest
 {
     public function __construct()
     {
-        $blockTypeMaxOccurences = [];
+        $blockTypeMaxOccurences = [
+            // for example: "paragraph" => 5, null or not present means unlimited
+        ];
 
-        parent::__construct([
-            // Add your EditorJSRequestFieldRuleBuilder instances here
-        ]);
+        $fieldsMap = [
+            "YOUR-EDITOR-JS-FIELD-HERE" => new EditorJSRequestFieldRuleBuilder(
+                $blockTypeMaxOccurences,
+                // Add your blocks here
+            )
+        ];
+
+        $allowedVersions = "YOUR-EDITOR-JS-VERSION-HERE"; //if multiple, us an array.
+
+        parent::__construct($allowedVersions, $fieldsMap);
     }
 
     /**

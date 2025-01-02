@@ -2,14 +2,14 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ImageBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ImageBlock;
 use PHPUnit\Framework\TestCase;
 
 class ImageBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new ImageBlockRulesSupplier(255, null,1);
+        $supplier = new ImageBlock(255, null,1);
 
         $rules = $supplier->rules();
 
@@ -30,7 +30,7 @@ class ImageBlockRulesSupplierTest extends TestCase
 
     public function testGetRulesReturnsExpectedArrayWhenUrlStartNotNull(): void
     {
-        $supplier = new ImageBlockRulesSupplier(255, "https://example.com",1);
+        $supplier = new ImageBlock(255, "https://example.com",1);
 
         $rules = $supplier->rules();
 

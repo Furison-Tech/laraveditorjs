@@ -2,7 +2,7 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\EmbedBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\EmbedBlock;
 use FurisonTech\LaraveditorJS\Utils\EmbedServicesRegex;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,7 @@ final class EmbedBlockRulesSupplierTest extends TestCase
     {
         $embedServicesRegex = new EmbedServicesRegex();
         $embedRegexRules = $embedServicesRegex->getRegexRulesForServices(['vimeo', 'youtube']);
-        $supplier = new EmbedBlockRulesSupplier($embedRegexRules, 255, 10);
+        $supplier = new EmbedBlock($embedRegexRules, 255, 10);
 
         $rules = $supplier->rules();
 

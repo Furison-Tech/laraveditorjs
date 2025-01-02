@@ -2,9 +2,9 @@
 
 namespace TestObjects;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\NestedBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\NestedBlock;
 
-class DummyNestedBlockRulesSupplier extends NestedBlockRulesSupplier
+class DummyNestedBlockRulesSupplier extends NestedBlock
 {
     public function __construct()
     {

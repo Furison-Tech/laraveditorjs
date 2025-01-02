@@ -1,10 +1,10 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
 use FurisonTech\LaraveditorJS\EditorJSRequestFieldRuleBuilder;
 
-abstract class NestedBlockRulesSupplier extends BlockRulesSupplier
+abstract class NestedBlock extends Block
 {
 
     private EditorJSRequestFieldRuleBuilder $ruleBuilder;

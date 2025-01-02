@@ -2,14 +2,14 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\AudioBlock;
 use PHPUnit\Framework\TestCase;
 
 final class AudioBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new AudioBlockRulesSupplier(null);
+        $supplier = new AudioBlock(null);
 
         $rules = $supplier->rules();
 
@@ -23,7 +23,7 @@ final class AudioBlockRulesSupplierTest extends TestCase
 
     public function testGetRulesReturnsExpectedArrayWhenUrlRegexNotNull(): void
     {
-        $supplier = new AudioBlockRulesSupplier("https://example.com");
+        $supplier = new AudioBlock("https://example.com");
 
         $rules = $supplier->rules();
 

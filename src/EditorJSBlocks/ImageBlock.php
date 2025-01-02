@@ -1,10 +1,10 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
 
 
-class ImageBlockRulesSupplier extends BlockRulesSupplier
+class ImageBlock extends Block
 {
 
     private int $maxCaptionLength;

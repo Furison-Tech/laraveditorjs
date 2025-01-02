@@ -1,10 +1,10 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
 
 
-class HeaderBlockRulesSupplier extends BlockRulesSupplier
+class HeaderBlock extends Block
 {
 
     private int $maxLength;

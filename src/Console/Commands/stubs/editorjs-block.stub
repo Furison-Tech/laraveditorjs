@@ -2,9 +2,9 @@
 
 namespace {{ namespace }};
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\Block;
 
-class {{ class }} extends BlockRulesSupplier
+class {{ class }} extends Block
 {
 
     public function __construct()
@@ -12,14 +12,14 @@ class {{ class }} extends BlockRulesSupplier
         parent::__construct("INSERT_BLOCK_TYPE_HERE");
     }
 
-    public function getRules(): array
+    public function rules(): array
     {
         return [
            // Add your laravel validation rules here for this block
         ];
     }
 
-    public function getRulesErrorMessages(): array
+    public function errorMessages(): array
     {
         return [
             // Add custom error messages for your block's rules here, if any.

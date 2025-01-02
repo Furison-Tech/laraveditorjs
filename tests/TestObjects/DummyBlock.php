@@ -2,9 +2,9 @@
 
 namespace TestObjects;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\Block;
 
-class DummyBlockRulesSupplier extends BlockRulesSupplier
+class DummyBlock extends Block
 {
     public function __construct()
     {

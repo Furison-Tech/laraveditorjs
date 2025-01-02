@@ -2,15 +2,15 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ColumnBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ParagraphBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ColumnBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ParagraphBlock;
 use PHPUnit\Framework\TestCase;
 
 class ColumnBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new ColumnBlockRulesSupplier(new ParagraphBlockRulesSupplier(255));
+        $supplier = new ColumnBlock(new ParagraphBlock(255));
 
         $supplier->setAllowedVersions(['2.22.2']);
         $supplier->setNestedData([

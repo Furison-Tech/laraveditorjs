@@ -1,8 +1,8 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-class ListBlockRulesSupplier extends BlockRulesSupplier
+class ListBlock extends Block
 {
 
     private int $maxItemLength;

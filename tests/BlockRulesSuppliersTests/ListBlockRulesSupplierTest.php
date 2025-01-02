@@ -2,14 +2,14 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ListBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ListBlock;
 use PHPUnit\Framework\TestCase;
 
 class ListBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new ListBlockRulesSupplier(10, 255, 1);
+        $supplier = new ListBlock(10, 255, 1);
 
         $rules = $supplier->rules();
 

@@ -2,10 +2,10 @@
 
 namespace TestObjects;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\TableBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\TableBlock;
 use FurisonTech\LaraveditorJS\HTMLContainable;
 
-class MockConvertableTableBlockRulesSupplier extends TableBlockRulesSupplier implements HTMLContainable
+class MockConvertableTableBlockRulesSupplier extends TableBlock implements HTMLContainable
 {
     public function __construct(int $maxRows, int $maxColumns, int $maxTextLength)
     {

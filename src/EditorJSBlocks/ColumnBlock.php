@@ -1,11 +1,11 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-class ColumnBlockRulesSupplier extends NestedBlockRulesSupplier
+class ColumnBlock extends NestedBlock
 {
 
-    public function __construct(BlockRulesSupplier ...$BlockRulesSuppliers)
+    public function __construct(Block ...$BlockRulesSuppliers)
     {
         parent::__construct($BlockRulesSuppliers ,'columns', 'cols');
     }

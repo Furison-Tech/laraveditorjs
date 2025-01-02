@@ -2,12 +2,12 @@
 
 namespace TestObjects;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\AudioBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ColumnBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\EmbedBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\HeaderBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ImageBlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ListBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\AudioBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ColumnBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\EmbedBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\HeaderBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ImageBlock;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ListBlock;
 use FurisonTech\LaraveditorJS\EditorJSFormRequest;
 use FurisonTech\LaraveditorJS\EditorJSRequestFieldRuleBuilder;
 use FurisonTech\LaraveditorJS\Utils\EmbedServicesRegex;
@@ -39,16 +39,16 @@ class MockEditorJSFormRequest extends EditorJSFormRequest
             "article" => new EditorJSRequestFieldRuleBuilder(
                 $blockTypeMaxOccurences,
                 new MockConvertableTableBlockRulesSupplier(200, 20, 255),
-                new HeaderBlockRulesSupplier(255, 2, 6),
+                new HeaderBlock(255, 2, 6),
                 new MockConvertableParagraphBlockRulesSupplier(2500),
-                new ImageBlockRulesSupplier(255, null),
-                new AudioBlockRulesSupplier(null),
-                new EmbedBlockRulesSupplier($embedRegexRules, 255),
-                new ListBlockRulesSupplier(100, 500),
-                new ColumnBlockRulesSupplier(
+                new ImageBlock(255, null),
+                new AudioBlock(null),
+                new EmbedBlock($embedRegexRules, 255),
+                new ListBlock(100, 500),
+                new ColumnBlock(
                     new MockConvertableParagraphBlockRulesSupplier(2500),
-                    new HeaderBlockRulesSupplier(255, 3, 6),
-                    new ListBlockRulesSupplier(100, 500)
+                    new HeaderBlock(255, 3, 6),
+                    new ListBlock(100, 500)
                 )
             )
         ];

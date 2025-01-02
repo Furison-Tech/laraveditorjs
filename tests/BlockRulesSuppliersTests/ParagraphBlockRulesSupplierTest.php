@@ -2,14 +2,14 @@
 
 namespace BlockRulesSuppliersTests;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\ParagraphBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\ParagraphBlock;
 use PHPUnit\Framework\TestCase;
 
 class ParagraphBlockRulesSupplierTest extends TestCase
 {
     public function testGetRulesReturnsExpectedArray(): void
     {
-        $supplier = new ParagraphBlockRulesSupplier(255);
+        $supplier = new ParagraphBlock(255);
 
         $rules = $supplier->rules();
 

@@ -2,8 +2,8 @@
 
 namespace FurisonTech\LaraveditorJS;
 
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\BlockRulesSupplier;
-use FurisonTech\LaraveditorJS\BlockRulesSuppliers\NestedBlockRulesSupplier;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\Block;
+use FurisonTech\LaraveditorJS\EditorJSBlocks\NestedBlock;
 use FurisonTech\LaraveditorJS\Rules\AllowedHtmlRule;
 use Illuminate\Support\Number;
 
@@ -21,9 +21,9 @@ class EditorJSRequestFieldRuleBuilder
      * EditorJSRequestFieldRuleBuilder constructor.
      *
      * @param array $blockTypeMaxes
-     * @param BlockRulesSupplier ...$BlockRulesSuppliers
+     * @param Block ...$BlockRulesSuppliers
      */
-    public function __construct(array $blockTypeMaxes, BlockRulesSupplier ...$BlockRulesSuppliers)
+    public function __construct(array $blockTypeMaxes, Block ...$BlockRulesSuppliers)
     {
         foreach ($BlockRulesSuppliers as $blockRuleSupplier) {
             $this->blockRuleSuppliers[$blockRuleSupplier->getBlockType()] = $blockRuleSupplier;
@@ -67,7 +67,7 @@ class EditorJSRequestFieldRuleBuilder
                 continue; // Invalid block type, will be caught by initial validation
             }
 
-            /** @var BlockRulesSupplier $supplier */
+            /** @var Block $supplier */
             $supplier = $this->blockRuleSuppliers[$blockType];
             $blockTypeOccurrences[$blockType] = ($blockTypeOccurrences[$blockType] ?? 0) + 1;
 
@@ -77,7 +77,7 @@ class EditorJSRequestFieldRuleBuilder
                 $rules["$field.blocks.$index"] = "missing";
             }
 
-            if ($supplier instanceof NestedBlockRulesSupplier) {
+            if ($supplier instanceof NestedBlock) {
                 $supplier->setNestedData($block['data'] ?? []);
                 $supplier->setAllowedVersions($allowedVersions);
             }
@@ -122,7 +122,7 @@ class EditorJSRequestFieldRuleBuilder
                 continue;
             }
 
-            /** @var BlockRulesSupplier $supplier */
+            /** @var Block $supplier */
             $supplier = $this->blockRuleSuppliers[$blockType];
             $blockTypeOccurrences[$blockType] = ($blockTypeOccurrences[$blockType] ?? 0) + 1;
 
@@ -135,7 +135,7 @@ class EditorJSRequestFieldRuleBuilder
 
             $dataRulesMessages = $supplier->errorMessages();
 
-            if ($supplier instanceof NestedBlockRulesSupplier) {
+            if ($supplier instanceof NestedBlock) {
                 $supplier->setNestedData($block['data'] ?? []);
             }
 

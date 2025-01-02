@@ -1,8 +1,8 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-class EmbedBlockRulesSupplier extends BlockRulesSupplier
+class EmbedBlock extends Block
 {
 
     private int $maxCaptionLength;

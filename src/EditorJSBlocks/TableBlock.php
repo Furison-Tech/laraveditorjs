@@ -1,8 +1,8 @@
 <?php
 
-namespace FurisonTech\LaraveditorJS\BlockRulesSuppliers;
+namespace FurisonTech\LaraveditorJS\EditorJSBlocks;
 
-class TableBlockRulesSupplier extends BlockRulesSupplier
+class TableBlock extends Block
 {
     private int $maxRows;
     private int $maxColumns;
