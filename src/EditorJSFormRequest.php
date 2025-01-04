@@ -69,7 +69,7 @@ abstract class EditorJSFormRequest extends FormRequest
         return [];
     }
 
-    public function getRequestDataArticlesJsonized(): array
+    public function getValidatedDataArticlesJsonized(): array
     {
         $data = $this->validated();
 

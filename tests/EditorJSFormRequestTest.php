@@ -52,7 +52,7 @@ class EditorJSFormRequestTest extends TestCase
 
         $this->assertEquals(
             $testScenarioDataHelper->getExpectedJsonizedOutput(),
-            $hydratedFormRequest->getRequestDataArticlesJsonized()
+            $hydratedFormRequest->getValidatedDataArticlesJsonized()
         );
 
         $this->assertEquals($testScenarioDataHelper->getExpectedHtmlValidationErrors(), $hydratedFormRequest->getAllHtmlValidationErrors());
