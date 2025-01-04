@@ -27,6 +27,12 @@ Rendering is straight forward. For basic functionality, rendering can be done by
 
 ## Installation
 
+You can install the package via composer:
+
+```bash
+composer require furison-tech/laraveditorjs
+```
+
 ## Usage
 
 ### Basic Validation
