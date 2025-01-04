@@ -278,4 +278,4 @@ From there you can access the block data, like for example:
 ```
 
 ## Versioning
-This package was made for laravel 10 & 11.
+This package was made for laravel 10 & 11 and requires a minimum of PHP 8.1.
