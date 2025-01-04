@@ -272,7 +272,7 @@ From there you can access the block data, like for example:
         <p>{{ $block['data']['text'] }}</p>
         <p>Narrated by: {{ $block['data']['narrator'] }}</p>
         <audio>
-            <source src="/article/id/link/to/audio">
+            <source src="/article/{{$id}}/link/to/audio">
         </audio>
     </div>
 ```
