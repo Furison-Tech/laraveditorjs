@@ -39,7 +39,8 @@ class EmbedBlock extends Block
 
     private function collapseRegexes($columnKey): string
     {
-        return count($this->allowedServices) == 1 ? implode(array_column($this->allowedServices, $columnKey))
+        $collapsedRegex =  count($this->allowedServices) == 1 ? implode(array_column($this->allowedServices, $columnKey))
             : '('. implode('|', array_column($this->allowedServices, $columnKey)) .')';
+        return '/' . $collapsedRegex . '/';
     }
 }

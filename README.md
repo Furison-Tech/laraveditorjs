@@ -13,8 +13,7 @@ This package aims to provide a familiar way to handle your EditorJS data.
 You can validate your Requests including EditorJS data using the EditorJSFormRequest, which is an extension of Laravel's FormRequest.
 With proper configuration, the EditorJSFormRequest will build the necessary validation rules depending on the content of your EditorJS data.
 Any errors will be returned in the format that Laravel uses for validation errors. 
-HTML can also be validated, without relying on HTMLpurifier. and even convert to JSON
-The HTML can be converted to JSON, to make the EditorJS posts completely HTML free.
+HTML can also be validated, without relying on HTMLpurifier. and even the HTML can be converted to JSON, to make the EditorJS content completely HTML free.
 Rendering is straight forward. For basic functionality, rendering can be done by including 1 blade directive.
 
 **TLDR**:
